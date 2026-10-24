@@ -8,3 +8,4 @@ state/pending.json
 state/blocked.json
 state/journal.jsonl
 state/publish.json
+state/bridge-export/

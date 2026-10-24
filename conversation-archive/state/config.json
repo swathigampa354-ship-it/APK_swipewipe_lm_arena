@@ -16,9 +16,7 @@
     "max_tool_stdout": 4096
   },
   "publish_paths": [
-    "conversation-archive",
-    "README.md",
-    ".gitignore"
+    "conversation-archive"
   ],
   "remote": "origin",
   "remote_url": "https://github.com/swathigampa354-ship-it/APK_swipewipe_lm_arena.git",

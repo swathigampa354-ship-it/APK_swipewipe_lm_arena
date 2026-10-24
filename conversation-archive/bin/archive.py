@@ -956,9 +956,25 @@ def cmd_init(a):
         c["branch"] = a.branch
     if a.remote:
         code, url, _ = git(gitdir, "remote", "get-url", a.remote)
-        c.update(remote=a.remote, remote_url=url if code == 0 else None)
+        stored = load_json(REL["config"], {}) or {}
+        c.update(remote=a.remote,
+                 remote_url=(url.strip() if code == 0 and url.strip()
+                             else stored.get("remote_url")))
     c["git_repo"] = gitdir
     c["repo"] = ROOT
+    # Re-assert the remote every init: some environments persist the worktree but not
+    # .git/config (sandbox snapshots exclude it, and so do several CI cache schemes),
+    # which otherwise shows up much later as a confusing "not a git repository" push error.
+    if a.remote and c.get("remote_url"):
+        code, _, _ = git(gitdir, "remote", "get-url", a.remote)
+        if code != 0:
+            git(gitdir, "remote", "add", a.remote, c["remote_url"])
+            journal("remote_restored", name=a.remote)
+        else:
+            cur, url, _ = git(gitdir, "remote", "get-url", a.remote)
+            if url.strip() != c["remote_url"].strip():
+                git(gitdir, "remote", "set-url", a.remote, c["remote_url"])
+                journal("remote_repointed", name=a.remote)
     save_config(c)
     open(repo_path(REL["journal"]), "a").close()
     print(json.dumps({"ok": True, "repo": ROOT, "git_repo": gitdir,
