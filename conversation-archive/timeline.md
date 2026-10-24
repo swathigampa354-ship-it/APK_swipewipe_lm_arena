@@ -28,3 +28,4 @@ Timestamps are recorded only when the source exposed them; `unavailable` is a fa
 | 10 | unavailable | report | arena-agent | authored-for-archive | `ad5050a7bf90` | 887 |
 | 10 | unavailable | tool | arena-agent | agent-context-excerpt | `8635c40b8216` | 602 |
 | 11 | unavailable | tool | arena-agent | agent-context-excerpt | `349dda8072b7` | 643 |
+| 12 | unavailable | tool | arena-agent | agent-context-excerpt | `00854388e531` | 1176 |

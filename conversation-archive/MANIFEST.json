@@ -45,8 +45,8 @@
       "sha256": "dc21ab19fa442c9240f3795de596e57be71a4fbd61ba982bd48f78757cbc0b60"
     },
     "conversation-archive/execution-log.md": {
-      "bytes": 10663,
-      "sha256": "e1a3eb825c525c30766897a1631c8f9b7ca5b084b780a08c73fff2517e70fde7"
+      "bytes": 12126,
+      "sha256": "85da4c1f3b2a8efd6f6e04a7310414cab165934086e6d80c0110084c4f88f285"
     },
     "conversation-archive/launchd/com.arena.archive.plist": {
       "bytes": 674,
@@ -61,8 +61,8 @@
       "sha256": "307a348b045bf3357d13d1845114dd1e486efc0bcd33262466ef929c8d171994"
     },
     "conversation-archive/records/tool-executions.jsonl": {
-      "bytes": 15081,
-      "sha256": "50ec76555499b3f870e5d4ba4003508bfbabfa3ae90932b83b56e8996612e9e7"
+      "bytes": 16984,
+      "sha256": "d738176dfe1d891d0a614bd0d678eccdb20a0e31c722908b32f29463f6f18325"
     },
     "conversation-archive/reports/.gitkeep": {
       "bytes": 0,
@@ -146,7 +146,7 @@
     },
     "conversation-archive/state/cursor.json": {
       "bytes": 221,
-      "sha256": "6b1c0b32abdfdb6d75acc013edc32e8b46d7c17291b8c1be4fddc459d94a28ad"
+      "sha256": "79a5d94bd6ebfc2dd5f49cee1859dc7875dd116c72c658252e9a150c5432e81a"
     },
     "conversation-archive/systemd/arena-archive.service": {
       "bytes": 492,
@@ -177,12 +177,12 @@
       "sha256": "2e8db27d2b7d31d9a279ccc3e70d999a8d7ae1397186a950fea6d026574cddd2"
     },
     "conversation-archive/timeline.md": {
-      "bytes": 2232,
-      "sha256": "77f596219234a88ebdcf7ae748a1f318a837d43a7fa06615a4204302d8e81eb0"
+      "bytes": 2322,
+      "sha256": "b82730af08787be4dcdd2d01a667af7ce8b9d542effcc580b5eea26cf5e3d1df"
     },
     "conversation-archive/transcript.md": {
-      "bytes": 21825,
-      "sha256": "d430c4d55f12e9686dbc27ef99eedd0a25eb037789a0816a5dc60c9fe0cd574f"
+      "bytes": 23229,
+      "sha256": "6498236fd790878d7c305ba4343dde9ed5079e1b62a817a851de07d1e400c09b"
     }
   },
   "generator": "bin/archive.py",
@@ -190,8 +190,8 @@
   "policy": "derived deterministically from records/*.jsonl; contains no wall-clock value",
   "records": {
     "first_seq": 1,
-    "last_seq": 11,
+    "last_seq": 12,
     "messages": 10,
-    "tool_executions": 11
+    "tool_executions": 12
   }
 }

@@ -3,7 +3,7 @@
 
 # Conversation transcript
 
-Built from 10 message record(s) and 11 execution record(s) (last seq 21).
+Built from 10 message record(s) and 12 execution record(s) (last seq 22).
 
 Archives only records visible to the agent. Hidden internal reasoning is out of scope by design.
 
@@ -475,4 +475,32 @@ sync -> {'changed': True, 'pushed': True, 'push_attempts': 1, 'push_error': None
 pre-push  : fatal: could not read Username for 'https://github.com': terminal prompts disabled
             (this is the recorded failure of the credential-less attempt, kept as evidence)
 post-push : state/pending.json consumed (absent), 23 tests OK, credential scan clean
+```
+
+## 12. tool — timestamp unavailable
+
+*origin: arena-agent*  
+*provenance: agent-context-excerpt*  
+*source: archivist entry: reachability probe*  
+*label: device bridge reachability recheck (deferred import)*  
+
+```text
+$ curl -s -m 6 -X POST http://127.0.0.1:8079/mcp -d '{"method":"tools/list"}'; ss -lntp | grep 8079; cat ~/.ocbridge/tunnel.pid | xargs kill -0; tail -4 ~/.ocbridge/tunnel.log; command -v cloudflared
+
+--- output ---
+POST http://127.0.0.1:8079/mcp (tools/list) -> curl rc=7, "couldn't connect to host"
+ss -lntp: no listener on 8079 (sandbox listeners are 47691/43523/41719, unrelated)
+~/.ocbridge/tunnel.pid = 18164 -> alive=no
+~/.ocbridge/tunnel.log last lines:
+  ERR Connection terminated connIndex=0
+  ERR no more connections to the origin server at ...?  (tunnel server exited)
+  INF Tunnel server stopped / Metrics server stopped
+cloudflared: MISSING in this sandbox (was installed earlier in the session; /usr/local/bin is not
+  part of the persisted workspace snapshot)
+
+Conclusion reported as-is, not softened: the device-side OpenCode import could NOT be performed.
+No retry loop was attempted and no tunnel was reinstalled to reach the phone. The importer is
+implemented and unit-tested against a fixture database, and termux/arena-archive.sh performs
+pull -> import-opencode -> sync entirely on the device, where the database is local and no tunnel
+is needed at all.
 ```
