@@ -3,7 +3,7 @@
 
 # Conversation transcript
 
-Built from 8 message record(s) and 10 execution record(s) (last seq 18).
+Built from 9 message record(s) and 10 execution record(s) (last seq 19).
 
 Archives only records visible to the agent. Hidden internal reasoning is out of scope by design.
 
@@ -383,6 +383,20 @@ diff of MANIFEST between idle syncs:
 Fixes: no wall clock in published bytes; MANIFEST never hashes itself; cursor written before
 staging; publication state moved to gitignored state/publish.json.
 Also fixed: redaction false positives on `token = os.environ.get(` and `KEY=CONSTANT`.
+```
+
+## 9. system — timestamp unavailable
+
+*origin: arena-agent*  
+*provenance: authored-for-archive*  
+*source: archivist note*  
+
+```text
+Records seq 7 and 8 ("handoff note from the operator side…", "second message dropped while the agent
+was idle") were created by the archiver's own end-to-end watcher test, not by a human. They are
+kept in the archive because deleting them would misrepresent the store, and they are labelled here
+so no reader mistakes them for operator messages. Everything else in records/messages.jsonl comes
+from the conversation itself or from the session-summary reconstruction described in ARCHIVE_POLICY.md.
 ```
 
 ## 9. tool — timestamp unavailable
