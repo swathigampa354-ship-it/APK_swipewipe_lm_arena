@@ -3,7 +3,7 @@
 
 # Execution log — commands, outputs, errors
 
-Built from 123 execution record(s).
+Built from 136 execution record(s).
 
 ---
 
@@ -3832,4 +3832,242 @@ $ python3 bin/import-bridge.py --url https://<bridge-host> --sessions ses_e9f13a
 TOTAL appended: 28 message record(s), 110 execution record(s)
 credential hygiene: records/*.jsonl and the local cache all grep 0 for ghp_; 1 marker present
 records now: 39 messages / 122 executions; device-origin 138, all with real timestamps
+```
+
+## 124. opencode health + process check — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `ok` |
+| `exit_code` | `0` |
+| `duration_ms` | `1500` |
+| `output_bytes` | `267` |
+| `output_sha256` | `47b0d42c5a9cb73fe75b7c3fd113c97016ee6a8c57804d69884985c1ddbfa58c` |
+
+```text
+$ GET http://127.0.0.1:4096/global/health ; pgrep -fa opencode ; cat ~/.config/opencode/opencode.jsonc ; echo $OPENCODE_SERVER_PASSWORD
+
+--- output ---
+{"healthy":true,"version":"1.19.3"}
+30209 opencode
+31618 opencode serve --port 4096 --hostname 127.0.0.1
+31619 node /data/data/com.termux/files/home/lmarena-bridge/server.js
+opencode.jsonc = {"$schema":...} only; OPENCODE_SERVER_PASSWORD unset (no auth on the server)
+```
+
+## 125. session created + RE prompt submitted (prompt_async) — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `ok` |
+| `exit_code` | `0` |
+| `duration_ms` | `2100` |
+| `output_bytes` | `118` |
+| `output_sha256` | `3bd2912b1551ddae230688681fc047f7e22739877bcacacb75d49ee63541eb9e` |
+
+```text
+$ POST /session {"title":"swipewipe-recon-resume"} ; POST /session/ses_e934a152affegNboMXJh5V7UvP/prompt_async (4,556-char task text)
+
+--- output ---
+session ses_e934a152affegNboMXJh5V7UvP created (200); prompt_async -> 204. inputs/task.md staged 4,562 B before submit
+```
+
+## 126. poll at +60s / +150s: agent tool parts — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `ok` |
+| `exit_code` | `0` |
+| `duration_ms` | `3000` |
+| `output_bytes` | `157` |
+| `output_sha256` | `b64baa9db59f624415e8e0f898701903794971a82cc9e33d9a3b951636b33d45` |
+
+```text
+$ GET /session/{id}/message ; dump every tool part command/output/status
+
+--- output ---
+step 0 logged ("no progress.jsonl existed; starting fresh"); 3 bash calls completed; 4th part: command `cp .../base.apk && sha256sum && ls -l` status=running
+```
+
+## 127. stall diagnosis: process/artifact cross-check — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `ok` |
+| `exit_code` | `0` |
+| `duration_ms` | `1800` |
+| `output_bytes` | `124` |
+| `output_sha256` | `039239696570e08583185570e74ec510b864882faf16511e7da94ff68e00f577` |
+
+```text
+$ pgrep -fa "cp |java|sha256" ; ls -l ~/rea/swipewipe ; find ~/rea/swipewipe/mcp_out/classes -name "*.java" | wc -l
+
+--- output ---
+NO matching process; base.apk absent; dir 62K; mcp_out/classes/*.java = 0 -> tool part wedged with nothing running behind it
+```
+
+## 128. control I/O benchmark from the identical source path — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `ok` |
+| `exit_code` | `0` |
+| `duration_ms` | `2600` |
+| `output_bytes` | `123` |
+| `output_sha256` | `d8392c2e2ef6871382e3a04076f87cd4199fae0a2eaaf0a89b3e58a0cd982663` |
+
+```text
+$ dd if=/data/app/.../base.apk of=$HOME/rea/swipewipe/probe.bin bs=1M count=4
+
+--- output ---
+4 MB in 0.025 s = 167 MB/s -> device read path is fast; the wedge is in OpenCode's foreground bash tool, not the filesystem
+```
+
+## 129. interrupt the wedged run; session made reusable — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `ok` |
+| `exit_code` | `0` |
+| `duration_ms` | `900` |
+| `output_bytes` | `14` |
+| `output_sha256` | `23e6a6b0ccc166b768c472a2d9d4671cce6bce8307af04f4f67f241fa37692bc` |
+
+```text
+$ POST /api/session/ses_e934a152affegNboMXJh5V7UvP/interrupt
+
+--- output ---
+204 No Content
+```
+
+## 130. toolchain + jar source audit (read-only) — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `ok` |
+| `exit_code` | `0` |
+| `duration_ms` | `4000` |
+| `output_bytes` | `306` |
+| `output_sha256` | `74a278aea9652fa0981e98a1be917cd74a39d84eabe351a1bebfb80ec79bc251` |
+
+```text
+$ jadx --version ; java -version ; rea --version ; df -h ~ ; cat ~/gotall-work/skills/rea/.gitmodules ; grep -rho "jadx-headless-mcp-0.7.1-all.jar" /usr/lib/node_modules/rea-agents | head -1 ; pm path com.afternoonproducts.swipewipe
+
+--- output ---
+jadx 1.5.5; openjdk 21.0.12; rea 6.7.0; 22 GB free. .gitmodules -> 1013503897/jadx-headless-mcp.git pinned 5844800a486d2248fa949b74c9896285f5b54de2; release URL v0.7.1/...-all.jar. pm path -> /data/app/~~MvxcpivI8tqznpBRUvMq9w==/...-bLCvwUzp67ho4L_CnNluLQ==/base.apk + 3 splits. /tmp not writable on Termux
+```
+
+## 131. authoritative MCP contract read from recovered evidence — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `ok` |
+| `exit_code` | `0` |
+| `duration_ms` | `1500` |
+| `output_bytes` | `359` |
+| `output_sha256` | `cc8810beb8338dc7670f137b3462b1f325655763f95a48d7eb7bb0b2552a8d79` |
+
+```text
+$ cat mcp_out/load_apk_schema.txt mcp_run1/id15_probe.json ; python3 -c "list_classes id=14 items"
+
+--- output ---
+load_apk inputSchema requires "path" (+include_packages/exclude_packages/threads/code_cache_size/resources); get_class_source probe with no args -> isError "class_name is required"; id=14 -> package com.afternoonproducts.swipewipe total=52 items=52 FQNs; tools.txt = 26 tools incl. get_class_summary/get_method_body and server-side java->smali fallback marker
+```
+
+## 132. driver mock validation (sandbox) — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `ok` |
+| `exit_code` | `0` |
+| `duration_ms` | `2500` |
+| `output_bytes` | `283` |
+| `output_sha256` | `175f9a3f58f98eba3aaae831dc8995b252bd83b0dc011c9163e6175ec3a35bc7` |
+
+```text
+$ python3 run_mcp.py --mock against mock_server.py, then rerun for resume behaviour
+
+--- output ---
+run1: 6 classes -> decompiled_java=5 decompiled_smali=1 (restructure-failure class fell back to smali), 6 xref files, summary.json written; run2 skipped all classes. Caught: hardcoded ~ paths (untestable) and a rerun that zeroed the summary counts -> fixed, counts now read from disk
+```
+
+## 133. APK staged on device with digest verification — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `ok` |
+| `exit_code` | `0` |
+| `duration_ms` | `27000` |
+| `output_bytes` | `216` |
+| `output_sha256` | `d7055ef9c9178e9636de63ef73d1c36b5b4994cb5f72e7294d132d4216c1ae4e` |
+
+```text
+$ dd if=$A/base.apk of=$HOME/rea/swipewipe/base.apk bs=4M ; sha256sum
+
+--- output ---
+base.apk 92,066,971 bytes sha256=cfe3d01eed1351737b0894ea2cba85bea8888dd8038b5cfe71cbc4fc36380e22 == the archived build (old install-dir path in my notes was stale; re-derived from pm path). probe.bin scratch removed
+```
+
+## 134. files delivered to device + integrity check — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `ok` |
+| `exit_code` | `0` |
+| `duration_ms` | `6400` |
+| `output_bytes` | `323` |
+| `output_sha256` | `4528a5c6099b879291e9e5004a906bc5094025d297b85c74a2b93be5996b4f61` |
+
+```text
+$ oc_write_file run_mcp.py | inputs/class-inventory.json | inputs/task2.md ; sha256sum each
+
+--- output ---
+run_mcp.py 6a6f12465f5c4461… 11,734 B; class-inventory.json d21d80e09543e787… 3,872 B (52 classes); task2.md c0919eeae53d13d2… 4,495 B — all three byte-identical to local. An earlier base64-in-heredoc delivery failed with "base64: invalid input" (payload truncated in transit) — oc_write_file is the reliable path
+```
+
+## 135. second dispatch + queue/liveness read — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `ok` |
+| `exit_code` | `0` |
+| `duration_ms` | `1600` |
+| `output_bytes` | `310` |
+| `output_sha256` | `673c41681c7058fb71762c998c5fe68bd6d5dde063191fbb5ecd599c669e1b30` |
+
+```text
+$ POST /session/{id}/prompt_async -> 204 ; GET /session/status ; GET /session/{id}/message ; tail opencode.log
+
+--- output ---
+last message role=user (my prompt), no assistant reply after ~100 s; /session/status -> my session AND ses_e933d3d49ffewvudnPTpsV4Z00 both busy; opencode.log shows the OTHER session streaming MoCha/diffsynth greps at 12:45 IST. Session totals input 10,520 / output 212 / reasoning 145, model glm-5.3-flash-free
+```
+
+## 136. device access lost — tunnel expiry isolated — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `error` |
+| `exit_code` | `1` |
+| `duration_ms` | `61000` |
+| `output_bytes` | `283` |
+| `output_sha256` | `6e9a83292ca67d449d6a725fc2430f5e206809619cc0831d31fef706a6e0ae20` |
+
+```text
+$ 5x bridge retries ; getent hosts fwrjj-106-76-224-45.free.pinggy.net ; getent hosts pinggy.io ; curl https://pinggy.io ; curl https://api.github.com
+
+--- output ---
+all bridge calls failed; the tunnel hostname does not resolve, while pinggy.io -> 200 and api.github.com -> 200 -> the free pinggy tunnel expired, not a sandbox network fault. Final driver-launch call was dropped by the tunnel after 65 s, so whether run_mcp.py started is UNCONFIRMED
 ```

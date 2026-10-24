@@ -18,7 +18,10 @@ conversation-archive/
 │   ├── swipewipe-investigation-report.md   ← the investigation write-up
 │   ├── swipewipe-evidence-index.md         ← every artefact: size, sha256, publish state
 │   ├── swipewipe-progress-log.md           ← step-by-step history incl. this build
-│   └── prior-task-gotall-recovery.md       ← the earlier recovery task in the same conversation
+│   ├── prior-task-gotall-recovery.md       ← the earlier recovery task in the same conversation
+│   ├── bridge-exposure-finding.md          ← unauthenticated public shell, reported unsoftened
+│   ├── device-session-export.md            ← integrity-checked export of the phone's OpenCode store
+│   └── opencode-delegation-report.md       ← driving the operator's OpenCode: contract, wedge, outcome
 ├── sources/                   ← sanitized evidence extracts (13 files)
 ├── state/
 │   ├── config.json            ← published: branch/remote/limits/identity

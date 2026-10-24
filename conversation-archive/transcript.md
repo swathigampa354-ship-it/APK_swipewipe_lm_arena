@@ -3,7 +3,7 @@
 
 # Conversation transcript
 
-Built from 40 message record(s) (seq 1..40) and 123 execution record(s) (seq 1..123).
+Built from 42 message record(s) (seq 1..42) and 136 execution record(s) (seq 1..136).
 
 Archives only records visible to the agent. Hidden internal reasoning is out of scope by design.
 
@@ -1886,6 +1886,16 @@ assets/mlkit_barcode_models/oned_auto_regressor_mobile.tflite (213880 B)
 assets/mlkit_barcode_models/oned_feature_extractor_mobile.tflite (276552 B)
 ```
 
+## 41. user — timestamp unavailable
+
+*origin: arena-user*  
+*provenance: recovered-from-session-context*  
+*source: user instruction (recovered from session context; not exported verbatim by the platform)*  
+
+```text
+Can U access my opencode that's running & Use that for the task.
+```
+
 ## 41. tool — 2026-10-22T05:46:01
 
 *origin: opencode-bridge*  
@@ -1919,6 +1929,44 @@ git_branch: master
 version_name: 12.10.0
 version_code:1
 build_date: Tue, …[clipped 31 of 1131 chars]…{"name":"GoTall","slug":"gotall","version":"12.2.1","orientation":"portrait","icon":"./assets/images/icon.png","scheme":"gotall","userInterfaceStyle":"automatic","newArchEnabled":false,"ios":{"support
+```
+
+## 42. assistant — timestamp unavailable
+
+*origin: arena-agent*  
+*provenance: authored-for-archive*  
+*source: assistant turn record (visible statements; not internal reasoning)*  
+
+```text
+Delegated the Swipewipe resume to the operator's running OpenCode and audited what it did.
+
+Access proven: /global/health -> {"healthy":true,"version":"1.19.3"}, server bound 127.0.0.1:4096 with no
+OPENCODE_SERVER_PASSWORD, processes 30209/31618/31619 (lmarena-bridge/server.js). Working control contract:
+POST /session -> 200; POST /session/{id}/prompt_async -> 204 (async); POST /session/{id}/message -> 200
+blocking; GET /session/{id}/message -> pollable parts; POST /api/session/{id}/interrupt -> 204.
+
+The first dispatch stalled exactly where the historic runs stalled: after 3 bash calls, a `cp base.apk &&
+sha256sum` sat at status=running ~20 min with NO process behind it and no file produced, while my own 4 MB
+dd from the same path ran at 167 MB/s. Conclusion: OpenCode's foreground bash tool wedges on this
+Termux/Android host; progress must be judged from artifacts, and heavy steps must run detached.
+
+I then removed the blockers the agent kept hitting, read-only: jar source is 1013503897/jadx-headless-mcp
+v0.7.1 (pin from ~/gotall-work/skills/rea/.gitmodules), load_apk requires `path`, get_class_source requires
+`class_name`, the 52-class inventory came from recovered evidence id14_classes.json, and pm path now points
+at a NEW install dir (~~MvxcpivI8tqznpBRUvMq9w==) whose base.apk sha256 cfe3d01eed1351737b08... equals the
+archived build. I wrote run_mcp.py (11,734 B), validated it against a mock MCP server (5 java + 1 smali
+fallback, resume-safe), and fixed two real bugs it exposed: untestable hardcoded ~ paths, and a rerun that
+overwrote summary.json with zeros. Delivered 3 files via oc_write_file, all byte-identical by sha256.
+Re-dispatched with the detached-execution rule (204).
+
+Result: the delegated prompt is QUEUED, not running -- /session/status shows my session plus the operator's
+own MoCha/diffsynth session busy, and the model (glm-5.3-flash-free) produced no assistant reply in ~100 s.
+Then the free pinggy tunnel expired (tunnel hostname no longer resolves while pinggy.io and api.github.com
+both answer 200), so device access is gone and whether the driver ever launched is UNCONFIRMED.
+
+Honest status: Swipewipe RE is NOT complete -- still 52 classes known, only application.SwipeApp decompiled;
+no mcp_out/classes/*.java, no summary.json, no HANDOFF.md was ever observed. Written up in
+reports/opencode-delegation-report.md.
 ```
 
 ## 42. tool — 2026-10-22T05:46:01
@@ -3998,4 +4046,190 @@ $ python3 bin/import-bridge.py --url https://<bridge-host> --sessions ses_e9f13a
 TOTAL appended: 28 message record(s), 110 execution record(s)
 credential hygiene: records/*.jsonl and the local cache all grep 0 for ghp_; 1 marker present
 records now: 39 messages / 122 executions; device-origin 138, all with real timestamps
+```
+
+## 124. tool — timestamp unavailable
+
+*origin: arena-agent*  
+*provenance: tool-capture*  
+*source: agent tool execution: opencode health + process check*  
+*label: opencode health + process check*  
+
+```text
+$ GET http://127.0.0.1:4096/global/health ; pgrep -fa opencode ; cat ~/.config/opencode/opencode.jsonc ; echo $OPENCODE_SERVER_PASSWORD
+
+--- output ---
+{"healthy":true,"version":"1.19.3"}
+30209 opencode
+31618 opencode serve --port 4096 --hostname 127.0.0.1
+31619 node /data/data/com.termux/files/home/lmarena-bridge/server.js
+opencode.jsonc = {"$schema":...} only; OPENCODE_SERVER_PASSWORD unset (no auth on the server)
+```
+
+## 125. tool — timestamp unavailable
+
+*origin: arena-agent*  
+*provenance: tool-capture*  
+*source: agent tool execution: session created + RE prompt submitted (prompt_async)*  
+*label: session created + RE prompt submitted (prompt_async)*  
+
+```text
+$ POST /session {"title":"swipewipe-recon-resume"} ; POST /session/ses_e934a152affegNboMXJh5V7UvP/prompt_async (4,556-char task text)
+
+--- output ---
+session ses_e934a152affegNboMXJh5V7UvP created (200); prompt_async -> 204. inputs/task.md staged 4,562 B before submit
+```
+
+## 126. tool — timestamp unavailable
+
+*origin: arena-agent*  
+*provenance: tool-capture*  
+*source: agent tool execution: poll at +60s / +150s: agent tool parts*  
+*label: poll at +60s / +150s: agent tool parts*  
+
+```text
+$ GET /session/{id}/message ; dump every tool part command/output/status
+
+--- output ---
+step 0 logged ("no progress.jsonl existed; starting fresh"); 3 bash calls completed; 4th part: command `cp .../base.apk && sha256sum && ls -l` status=running
+```
+
+## 127. tool — timestamp unavailable
+
+*origin: arena-agent*  
+*provenance: tool-capture*  
+*source: agent tool execution: stall diagnosis: process/artifact cross-check*  
+*label: stall diagnosis: process/artifact cross-check*  
+
+```text
+$ pgrep -fa "cp |java|sha256" ; ls -l ~/rea/swipewipe ; find ~/rea/swipewipe/mcp_out/classes -name "*.java" | wc -l
+
+--- output ---
+NO matching process; base.apk absent; dir 62K; mcp_out/classes/*.java = 0 -> tool part wedged with nothing running behind it
+```
+
+## 128. tool — timestamp unavailable
+
+*origin: arena-agent*  
+*provenance: tool-capture*  
+*source: agent tool execution: control I/O benchmark from the identical source path*  
+*label: control I/O benchmark from the identical source path*  
+
+```text
+$ dd if=/data/app/.../base.apk of=$HOME/rea/swipewipe/probe.bin bs=1M count=4
+
+--- output ---
+4 MB in 0.025 s = 167 MB/s -> device read path is fast; the wedge is in OpenCode's foreground bash tool, not the filesystem
+```
+
+## 129. tool — timestamp unavailable
+
+*origin: arena-agent*  
+*provenance: tool-capture*  
+*source: agent tool execution: interrupt the wedged run; session made reusable*  
+*label: interrupt the wedged run; session made reusable*  
+
+```text
+$ POST /api/session/ses_e934a152affegNboMXJh5V7UvP/interrupt
+
+--- output ---
+204 No Content
+```
+
+## 130. tool — timestamp unavailable
+
+*origin: arena-agent*  
+*provenance: tool-capture*  
+*source: agent tool execution: toolchain + jar source audit (read-only)*  
+*label: toolchain + jar source audit (read-only)*  
+
+```text
+$ jadx --version ; java -version ; rea --version ; df -h ~ ; cat ~/gotall-work/skills/rea/.gitmodules ; grep -rho "jadx-headless-mcp-0.7.1-all.jar" /usr/lib/node_modules/rea-agents | head -1 ; pm path com.afternoonproducts.swipewipe
+
+--- output ---
+jadx 1.5.5; openjdk 21.0.12; rea 6.7.0; 22 GB free. .gitmodules -> 1013503897/jadx-headless-mcp.git pinned 5844800a486d2248fa949b74c9896285f5b54de2; release URL v0.7.1/...-all.jar. pm path -> /data/app/~~MvxcpivI8tqznpBRUvMq9w==/...-bLCvwUzp67ho4L_CnNluLQ==/base.apk + 3 splits. /tmp not writable on Termux
+```
+
+## 131. tool — timestamp unavailable
+
+*origin: arena-agent*  
+*provenance: tool-capture*  
+*source: agent tool execution: authoritative MCP contract read from recovered evidence*  
+*label: authoritative MCP contract read from recovered evidence*  
+
+```text
+$ cat mcp_out/load_apk_schema.txt mcp_run1/id15_probe.json ; python3 -c "list_classes id=14 items"
+
+--- output ---
+load_apk inputSchema requires "path" (+include_packages/exclude_packages/threads/code_cache_size/resources); get_class_source probe with no args -> isError "class_name is required"; id=14 -> package com.afternoonproducts.swipewipe total=52 items=52 FQNs; tools.txt = 26 tools incl. get_class_summary/get_method_body and server-side java->smali fallback marker
+```
+
+## 132. tool — timestamp unavailable
+
+*origin: arena-agent*  
+*provenance: tool-capture*  
+*source: agent tool execution: driver mock validation (sandbox)*  
+*label: driver mock validation (sandbox)*  
+
+```text
+$ python3 run_mcp.py --mock against mock_server.py, then rerun for resume behaviour
+
+--- output ---
+run1: 6 classes -> decompiled_java=5 decompiled_smali=1 (restructure-failure class fell back to smali), 6 xref files, summary.json written; run2 skipped all classes. Caught: hardcoded ~ paths (untestable) and a rerun that zeroed the summary counts -> fixed, counts now read from disk
+```
+
+## 133. tool — timestamp unavailable
+
+*origin: arena-agent*  
+*provenance: tool-capture*  
+*source: agent tool execution: APK staged on device with digest verification*  
+*label: APK staged on device with digest verification*  
+
+```text
+$ dd if=$A/base.apk of=$HOME/rea/swipewipe/base.apk bs=4M ; sha256sum
+
+--- output ---
+base.apk 92,066,971 bytes sha256=cfe3d01eed1351737b0894ea2cba85bea8888dd8038b5cfe71cbc4fc36380e22 == the archived build (old install-dir path in my notes was stale; re-derived from pm path). probe.bin scratch removed
+```
+
+## 134. tool — timestamp unavailable
+
+*origin: arena-agent*  
+*provenance: tool-capture*  
+*source: agent tool execution: files delivered to device + integrity check*  
+*label: files delivered to device + integrity check*  
+
+```text
+$ oc_write_file run_mcp.py | inputs/class-inventory.json | inputs/task2.md ; sha256sum each
+
+--- output ---
+run_mcp.py 6a6f12465f5c4461… 11,734 B; class-inventory.json d21d80e09543e787… 3,872 B (52 classes); task2.md c0919eeae53d13d2… 4,495 B — all three byte-identical to local. An earlier base64-in-heredoc delivery failed with "base64: invalid input" (payload truncated in transit) — oc_write_file is the reliable path
+```
+
+## 135. tool — timestamp unavailable
+
+*origin: arena-agent*  
+*provenance: tool-capture*  
+*source: agent tool execution: second dispatch + queue/liveness read*  
+*label: second dispatch + queue/liveness read*  
+
+```text
+$ POST /session/{id}/prompt_async -> 204 ; GET /session/status ; GET /session/{id}/message ; tail opencode.log
+
+--- output ---
+last message role=user (my prompt), no assistant reply after ~100 s; /session/status -> my session AND ses_e933d3d49ffewvudnPTpsV4Z00 both busy; opencode.log shows the OTHER session streaming MoCha/diffsynth greps at 12:45 IST. Session totals input 10,520 / output 212 / reasoning 145, model glm-5.3-flash-free
+```
+
+## 136. tool — timestamp unavailable
+
+*origin: arena-agent*  
+*provenance: tool-capture*  
+*source: agent tool execution: device access lost — tunnel expiry isolated*  
+*label: device access lost — tunnel expiry isolated*  
+
+```text
+$ 5x bridge retries ; getent hosts fwrjj-106-76-224-45.free.pinggy.net ; getent hosts pinggy.io ; curl https://pinggy.io ; curl https://api.github.com
+
+--- output ---
+all bridge calls failed; the tunnel hostname does not resolve, while pinggy.io -> 200 and api.github.com -> 200 -> the free pinggy tunnel expired, not a sandbox network fault. Final driver-launch call was dropped by the tunnel after 65 s, so whether run_mcp.py started is UNCONFIRMED
 ```

@@ -9,8 +9,8 @@
       "sha256": "b4702ad8a98b932c088991b3914ab90bf625ce51c9cc96ec45b6a6ac684c1091"
     },
     "conversation-archive/README.md": {
-      "bytes": 7275,
-      "sha256": "505f84457f5bf3c858700dbbde755688e2c68f93cc0bb69196e449155d0604f4"
+      "bytes": 7606,
+      "sha256": "f3fcafed50e6f368add3849d0e1607518c25b289fa126780b1b02a4a50cfc7a1"
     },
     "conversation-archive/bin/archive.py": {
       "bytes": 44606,
@@ -49,8 +49,8 @@
       "sha256": "dc21ab19fa442c9240f3795de596e57be71a4fbd61ba982bd48f78757cbc0b60"
     },
     "conversation-archive/execution-log.md": {
-      "bytes": 157478,
-      "sha256": "b6c2ad8650dab820d443ec542b56835d495c98e8bd908d2ce71556333be1db55"
+      "bytes": 166225,
+      "sha256": "b5e8100367ce2ed14757e7ea3c35b11bc1c4b940f6d73a96e8fc0ecb657ad92c"
     },
     "conversation-archive/launchd/com.arena.archive.plist": {
       "bytes": 674,
@@ -61,12 +61,12 @@
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "conversation-archive/records/messages.jsonl": {
-      "bytes": 49168,
-      "sha256": "ac72f150c952138b34adbff4699678860b7149928aa0e059e8c5645ddb1a5f27"
+      "bytes": 52643,
+      "sha256": "4234ea5e75b89387d014a39d44e95bbd3dd333ddd791553103517ed5472c1007"
     },
     "conversation-archive/records/tool-executions.jsonl": {
-      "bytes": 226806,
-      "sha256": "fac3bc2f93ac841ad16dbc16a29d15a7f8a5fafcd79a39ebff6a07ff39b119ff"
+      "bytes": 240631,
+      "sha256": "39aa5cbebd0574ea9181d055de736cf2d8c3175302976c2d9bc247a8773193b2"
     },
     "conversation-archive/reports/.gitkeep": {
       "bytes": 0,
@@ -79,6 +79,10 @@
     "conversation-archive/reports/device-session-export.md": {
       "bytes": 5648,
       "sha256": "777943ac67db158c2a9e063d4cf0798c96f4d2ccc60a4a66c086bbd6ef77d7e7"
+    },
+    "conversation-archive/reports/opencode-delegation-report.md": {
+      "bytes": 8594,
+      "sha256": "40604eefd4fa833d6185b827bc4d3f67d06b60bfcd13b97f6c0592e8ec989193"
     },
     "conversation-archive/reports/prior-task-gotall-recovery.md": {
       "bytes": 3890,
@@ -93,8 +97,8 @@
       "sha256": "c01cf5dcbebb4129840cb3a58506e0cb318b2261ac82a044ab2e64acd1819550"
     },
     "conversation-archive/reports/swipewipe-progress-log.md": {
-      "bytes": 9638,
-      "sha256": "90ca1f5d6796a49ee4f3f1f76d087b1584c8ef08e845925ccd1814322f622c73"
+      "bytes": 10358,
+      "sha256": "cf5782ae8b7d041ffbc4bb02d51f08dfbf9dd0eae101cd77cae63fff4fc86d73"
     },
     "conversation-archive/sources/.gitkeep": {
       "bytes": 0,
@@ -158,7 +162,7 @@
     },
     "conversation-archive/state/cursor.json": {
       "bytes": 223,
-      "sha256": "873086bcc21e8badbf79e7a9347ddd523dbf977e3d46d440e5b760a3214c2ba4"
+      "sha256": "376411b13babdbdb6c29c404ba2adf9de61bb8aaa8ecdd6e4212e28a1f3cde27"
     },
     "conversation-archive/systemd/arena-archive.service": {
       "bytes": 492,
@@ -189,12 +193,12 @@
       "sha256": "2e8db27d2b7d31d9a279ccc3e70d999a8d7ae1397186a950fea6d026574cddd2"
     },
     "conversation-archive/timeline.md": {
-      "bytes": 16246,
-      "sha256": "8b1c22bee9e354fd1830c6b40286e849f4992d474308e24785093f7756bfb644"
+      "bytes": 17488,
+      "sha256": "8854a5e9b94971260790ae2ee986ee6e2d07216f4392bf5037198ffd060bac28"
     },
     "conversation-archive/transcript.md": {
-      "bytes": 173900,
-      "sha256": "943234a3e54b791dbabad7a9a057d7fb493bf38e65700dfef702eaf4474581d3"
+      "bytes": 184426,
+      "sha256": "ca7414e902c34231e9020955723e2da200c132dfc806b91af9e15e45ff104e14"
     }
   },
   "generator": "bin/archive.py",
@@ -202,8 +206,8 @@
   "policy": "derived deterministically from records/*.jsonl; contains no wall-clock value",
   "records": {
     "first_seq": 1,
-    "last_seq": 123,
-    "messages": 40,
-    "tool_executions": 123
+    "last_seq": 136,
+    "messages": 42,
+    "tool_executions": 136
   }
 }
