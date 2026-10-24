@@ -57,8 +57,8 @@
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "conversation-archive/records/messages.jsonl": {
-      "bytes": 12024,
-      "sha256": "9a6ee2000bf9c5b83b5b15b94b7b227b8900744611c58210f174b54a5060ab61"
+      "bytes": 12442,
+      "sha256": "e8aaab32c5783df8dc71e9d23a3b6ff4efbe33a44d628c3b1bef1196d47293f8"
     },
     "conversation-archive/records/tool-executions.jsonl": {
       "bytes": 13728,
@@ -146,7 +146,7 @@
     },
     "conversation-archive/state/cursor.json": {
       "bytes": 220,
-      "sha256": "83a807d6868a4415f7f6ac1b6180e457dc13de4816b3e2944414f4b4951d8520"
+      "sha256": "d02139b259f85cd597756a9ca3fe6318de14587479bee34ed98c78fe32c5f3c1"
     },
     "conversation-archive/systemd/arena-archive.service": {
       "bytes": 492,
@@ -177,12 +177,12 @@
       "sha256": "2e8db27d2b7d31d9a279ccc3e70d999a8d7ae1397186a950fea6d026574cddd2"
     },
     "conversation-archive/timeline.md": {
-      "bytes": 1885,
-      "sha256": "bf6d801954048dd5f966b6d2ccf1960bd8514e7a610232350a6b9aba70fac688"
+      "bytes": 1964,
+      "sha256": "a9aa933ec4f99178de10e9a8a07c2b8610222d1b9a80533e3ad60ac65457a8a9"
     },
     "conversation-archive/transcript.md": {
-      "bytes": 19072,
-      "sha256": "d8de5855205dc6b0ad37ffd508a5568bf6d6bd094a10ca9e38f5c81f43ed6af5"
+      "bytes": 19267,
+      "sha256": "1b1f459cd720ef8f28c6b1c2461c03eb99f41dcbe524c7dc5c8af386ea2085be"
     }
   },
   "generator": "bin/archive.py",
@@ -191,7 +191,7 @@
   "records": {
     "first_seq": 1,
     "last_seq": 10,
-    "messages": 7,
+    "messages": 8,
     "tool_executions": 10
   }
 }

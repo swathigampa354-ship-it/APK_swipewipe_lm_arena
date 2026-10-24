@@ -3,7 +3,7 @@
 
 # Conversation transcript
 
-Built from 7 message record(s) and 10 execution record(s) (last seq 17).
+Built from 8 message record(s) and 10 execution record(s) (last seq 18).
 
 Archives only records visible to the agent. Hidden internal reasoning is out of scope by design.
 
@@ -352,6 +352,16 @@ TypeError: string indices must be integers, not 'str'
 Root cause: `findings, _ = redact_text(diff)` - the tuple was unpacked the wrong way round
 (redact_text returns (text, findings)), so `findings` held a *string*, the gate crashed, exited
 non-zero, and every commit looked like a secret leak.
+```
+
+## 8. user — timestamp unavailable
+
+*origin: human-side spool*  
+*provenance: verbatim*  
+*source: operator spool file (second)*  
+
+```text
+second message dropped while the agent was idle
 ```
 
 ## 8. tool — timestamp unavailable

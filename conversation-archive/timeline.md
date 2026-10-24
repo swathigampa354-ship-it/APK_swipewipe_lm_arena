@@ -21,6 +21,7 @@ Timestamps are recorded only when the source exposed them; `unavailable` is a fa
 | 6 | unavailable | tool | arena-agent | agent-context-excerpt | `d666e0bcf19e` | 358 |
 | 7 | unavailable | user | human-side spool | verbatim | `eed923e8d2d4` | 70 |
 | 7 | unavailable | tool | arena-agent | agent-context-excerpt | `22a1f1cc1e22` | 557 |
+| 8 | unavailable | user | human-side spool | verbatim | `b67cdea9c059` | 47 |
 | 8 | unavailable | tool | arena-agent | agent-context-excerpt | `ba173e262182` | 659 |
 | 9 | unavailable | tool | arena-agent | agent-context-excerpt | `f07405a724a5` | 88 |
 | 10 | unavailable | tool | arena-agent | agent-context-excerpt | `8635c40b8216` | 602 |
