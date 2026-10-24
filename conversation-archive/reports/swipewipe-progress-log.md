@@ -54,5 +54,25 @@ force a churn commit every run.
 
 ## PUSH RESULT
 
-_(written by the run that attempted publication; if this line still says "pending", the push has
-not been verified and must not be assumed to have worked.)_
+Run of 2026-10-24, sandbox on the agent side:
+
+| step | result |
+| --- | --- |
+| `git clone` of the target repo | ok — empty repository, default branch `main`, public (`private: false`, `size: 0`) |
+| `archive.py sync` | `changed: true`, commit **`8620d9177774cd2bbce7566eafc400b2bf67343b`**, 6 message records + 10 execution records, 44 published files |
+| redaction gate | passed on the second attempt; the **first** attempt it *refused* the commit because a private-key-shaped block existed as a contiguous string in a test fixture (`private-key-block=1`) — fixture rebuilt at runtime, gate kept |
+| `git push origin main` | **not published**: `push_error: credential-missing-or-rejected` — the sandbox has no GitHub credential (no `gh`, no `GITHUB_TOKEN`/`GH_TOKEN`, no credential helper, no `~/.git-credentials`/`~/.netrc`, no ssh agent), and the device bridge refused the connection (`[Errno 111] Connection refused`) |
+| resume state | `state/pending.json` written with the unpushed commit; the next `sync` on a machine that has a credential publishes *that same commit*, with no re-archiving and no duplicates |
+
+So the accurate statement is: **the archive is built, tested and committed; publication is not
+verified and has not happened from this sandbox.** Two ways to finish it, both tested to the extent
+they can be here:
+
+1. give the archiver a credential (`ARENA_ARCHIVE_GIT_TOKEN`, `GITHUB_TOKEN` or `GH_TOKEN`, obtained
+   from the operator's existing credential helper) and run `python3 conversation-archive/bin/archive.py sync`;
+2. or take `archive-outbox/*.bundle` produced by `bin/make-bundle.sh`, `git fetch` it locally and
+   `git push origin main` — which needs no token inside this repository at all.
+
+`bin/verify.sh` check 6 is the arbiter: it compares `git rev-parse HEAD` with
+`git ls-remote origin main` and prints the hash to report. Until that check passes, no claim of
+"pushed" is made anywhere in this folder.

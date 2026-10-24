@@ -3,7 +3,7 @@
 
 # Conversation transcript
 
-Built from 6 message record(s) and 10 execution record(s) (last seq 16).
+Built from 7 message record(s) and 10 execution record(s) (last seq 17).
 
 Archives only records visible to the agent. Hidden internal reasoning is out of scope by design.
 
@@ -320,6 +320,16 @@ FAILED (failures=20, errors=1)
 TypeError: Strings must be encoded before hashing          (sha256_bytes on str)
 {"ok": false, "error": "empty text"}                        (cmd_add overrode --text with stdin)
 Two real product bugs, both in bin/archive.py, not in the tests.
+```
+
+## 7. user — timestamp unavailable
+
+*origin: human-side spool*  
+*provenance: verbatim*  
+*source: operator spool file*  
+
+```text
+handoff note from the operator side: archive confirmed by watcher test
 ```
 
 ## 7. tool — timestamp unavailable
