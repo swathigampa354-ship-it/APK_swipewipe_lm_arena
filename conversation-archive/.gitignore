@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+*.redact.tmp
+state/archive.lock
+state/spool/
+state/pending.json
+state/blocked.json
+state/journal.jsonl
+state/publish.json

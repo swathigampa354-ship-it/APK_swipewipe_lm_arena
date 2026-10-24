@@ -1,0 +1,27 @@
+{
+  "branch": "main",
+  "excluded_from_publish": [
+    "raw decompiled application source (third-party code)",
+    "app-shipped API keys / ids found in decoded resources",
+    "the unredacted evidence zip (kept off-repo, identified by sha256)"
+  ],
+  "git_repo": "/home/user/work/APK",
+  "identity": {
+    "email": "conversation-archive@localhost",
+    "name": "Conversation Archiver"
+  },
+  "limits": {
+    "max_record_chars": 200000,
+    "max_tool_stderr": 1500,
+    "max_tool_stdout": 4096
+  },
+  "publish_paths": [
+    "conversation-archive",
+    "README.md",
+    ".gitignore"
+  ],
+  "remote": "origin",
+  "remote_url": "https://github.com/swathigampa354-ship-it/APK_swipewipe_lm_arena.git",
+  "repo": "/home/user/work/APK/conversation-archive",
+  "scope_note": "Archives only records visible to the agent. Hidden internal reasoning is out of scope by design."
+}

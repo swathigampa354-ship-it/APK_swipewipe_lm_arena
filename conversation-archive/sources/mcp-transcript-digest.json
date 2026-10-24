@@ -1,0 +1,59 @@
+{
+  "note": "metadata only; the response bodies (notably the decompiled SwipeApp.java) are not published",
+  "messages": [
+    {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "method": "response",
+      "has_error": false,
+      "response_chars": 0,
+      "response_sha256": null
+    },
+    {
+      "jsonrpc": "2.0",
+      "id": 13,
+      "method": "response",
+      "has_error": false,
+      "response_chars": 328,
+      "response_sha256": "d70ea8f4cd2a5d61cc80fcd0e800a9638c22996de9883ff1324838a3ce440955",
+      "load": {
+        "state": "LOADED",
+        "class_count": 53,
+        "raw_class_count": 63031,
+        "resource_count": 1,
+        "load_duration_ms": 94040,
+        "server": null
+      }
+    },
+    {
+      "jsonrpc": "2.0",
+      "id": 14,
+      "method": "response",
+      "has_error": false,
+      "response_chars": 3598,
+      "response_sha256": "3809edefa47f961613c4023c7431d12a55728ebd7dcea64f63407a8f37952204"
+    },
+    {
+      "jsonrpc": "2.0",
+      "id": 15,
+      "method": "response",
+      "has_error": true,
+      "response_chars": 22,
+      "response_sha256": "e46b319c6c2e27f5c863044f326d8d85915d841f132394e53607b2a110092383",
+      "error_text": "class_name is required"
+    },
+    {
+      "jsonrpc": "2.0",
+      "id": 16,
+      "method": "response",
+      "has_error": false,
+      "response_chars": 21946,
+      "response_sha256": "fc0eb1c42c8888f24c140f8027d4ab518b8a6e7acc976362dab25f193578b641",
+      "decompiled": {
+        "java_lines": 432,
+        "published": "no",
+        "reason": "third-party application source"
+      }
+    }
+  ]
+}

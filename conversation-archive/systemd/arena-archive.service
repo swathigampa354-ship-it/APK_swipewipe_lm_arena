@@ -1,0 +1,19 @@
+[Unit]
+Description=Arena conversation archiver (watcher for @ARCHIVE_DIR@)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=@REPO_ROOT@
+ExecStart=/usr/bin/env bash @ARCHIVE_DIR@/bin/watch.sh
+Restart=on-failure
+RestartSec=5
+# A resume marker lives in state/pending.json, so a crash mid-push is recovered by
+# the next sync rather than needing anything special here.
+KillSignal=SIGTERM
+TimeoutStopSec=20
+Nice=10
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,8 @@
+NO_INIT_RESPONSE
+s.bytedance.R, com.applovin.mediation.adapters.mintegral.R, com.applovin.mediation.adapters.unityads.R, com.applovin.mediation.adapters.vungle.R, com.google.android.gms.cronet.R, com.mwm.android.sdk.dynamic_screen.R, com.mwm.sdk.adskit.max_mediation_ironsource.R, com.mwm.sdk.appkits.helper.event.R, com.mwm.sdk.eventkit.R]
+[main] INFO jadx.core.utils.android.AndroidResourcesUtils - App 'R' class not found, put all resources ids into : 'com.afternoonproducts.swipewipe.R'
+[main] WARN jadx.core.dex.nodes.RootNode - Found duplicated class: kotlin.Metadata, count: 2, sources:
+  assets/audience_network/classes2.dex
+  classes6.dex
+ Keep class with source: classes6.dex, others will be removed.
+[main] INFO jadx.core.dex.nodes.RootNode - Loaded classes: 91473, methods: 496680, instructions: 13536913

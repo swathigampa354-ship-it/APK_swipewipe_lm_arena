@@ -1,0 +1,81 @@
+{
+  "files": [
+    {
+      "bytes": 4489,
+      "path": "logs/jadx.log",
+      "sha256": "01b9f777d4a44cc329013a0b53f180dc7f9be2cea5f336d53d2c520af8433557"
+    },
+    {
+      "bytes": 817,
+      "path": "logs/relaunch.log",
+      "sha256": "40dd6f664877882b1f365ab77b63e4b94066f871ae022c5e5a68f791718a5466"
+    },
+    {
+      "bytes": 1441,
+      "path": "mcp_out/load_apk_schema.txt",
+      "sha256": "c3d7755b8eb2ec36581ed344a5f1c65770c67a5e07b73b723a695d27d193b8f0"
+    },
+    {
+      "bytes": 47910,
+      "path": "mcp_out/server.err",
+      "sha256": "28e073b3f9759845b1f598a0236c545cc3c8d532526130e56bcb4860b4d77389"
+    },
+    {
+      "bytes": 26987,
+      "path": "mcp_out/server.out",
+      "sha256": "12acd25d19381db741553f18ae6356f81de67cfbcc50da879620c89d47259b08"
+    },
+    {
+      "bytes": 3789,
+      "path": "mcp_run1/id14_classes.json",
+      "sha256": "c7414be827d49df28fdc1544db17f035055ba93677c0c56ac48c299626cb6271"
+    },
+    {
+      "bytes": 112,
+      "path": "mcp_run1/id15_probe.json",
+      "sha256": "4ea8001dfe1aa9d1201a04d2eb62d117436c609f94831b6a4fb97df643ab9504"
+    },
+    {
+      "bytes": 22496,
+      "path": "mcp_run1/id16_swipeapp.json",
+      "sha256": "46dbdf0b79564669df2f70b964c7df8380fa0adddd808b934c793933470194ce"
+    },
+    {
+      "bytes": 5405,
+      "path": "mcp_run1/tools.txt",
+      "sha256": "bffd9128cf88045621e64de318dfe356f9ac129045f2ba055c4bdb84b117fa08"
+    },
+    {
+      "bytes": 283,
+      "path": "static/network_security_rules.xml",
+      "sha256": "37989fe68bc1a60322b550ad8c606e54672c9a4bfc1d2a2faf98186e5ea86624"
+    },
+    {
+      "bytes": 184365,
+      "path": "static/strings.xml",
+      "sha256": "0877059b0a0aa167590500eb01228a5e1d6dad4eb69da84a0598018485ff7861"
+    },
+    {
+      "bytes": 1961911,
+      "path": "static/swipewipe_artifact.json",
+      "sha256": "b3d3b90cd506c1eed5df2a75543a062fe5b26ac7883b77100406d5fcfc9641b3"
+    },
+    {
+      "bytes": 1667,
+      "path": "tools/swipewipe_mcp.sh",
+      "sha256": "89ed528e118a566999cf48dcd3108e8c705d73046e50dbaff52080eea082ec30"
+    }
+  ],
+  "generated_from": "local copy of the filebin package, re-hashed in this session",
+  "package": {
+    "bytes": 517921,
+    "expiry": "bin page reported 'expires 6 days from now' on 2026-10-24",
+    "file": "swipewipe-recon-main.zip",
+    "integrity_test": "unzip -t -> No errors detected; 19 entries; no '..' or absolute paths",
+    "md5": "5fdac74a8cf5a7533637ff651d7d4fb4",
+    "published": "no - kept off-repo because static/strings.xml carries app-shipped API keys",
+    "sha256": "6e47bfbc49f2923dd3993b1e2ca20b3636b5cfec500391cce5d8e68488f4a0f6",
+    "source_bin": "xbqadr2jt3dy9lt4",
+    "source_url_host": "filebin.net"
+  }
+}

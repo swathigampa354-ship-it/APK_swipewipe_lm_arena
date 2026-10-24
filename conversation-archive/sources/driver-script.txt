@@ -1,0 +1,45 @@
+#!/data/data/com.termux/files/usr/bin/bash
+set -u
+D=/data/data/com.termux/files/usr/tmp/opencode
+OUT=$HOME/rea/swipewipe/mcp_out
+JAR=$HOME/.local/share/rea/android/jadx-headless-mcp-0.7.1-all.jar
+APK=$HOME/rea/swipewipe/base.apk
+FIFO=$D/jadxmcp.in
+
+mkdir -p "$OUT"
+rm -f "$FIFO"
+mkfifo "$FIFO"
+
+# hold the fifo open so the server never sees EOF while we work
+( exec 9>"$FIFO"; sleep 3600 ) &
+echo $! > "$OUT/holder.pid"
+
+: > "$OUT/server.out"
+: > "$OUT/server.err"
+
+java -Xmx2048m -jar "$JAR" --transport stdio \
+  --apk "$APK" --resources none \
+  --include-packages com.afternoonproducts.swipewipe,com.mwm.swipewipe \
+  --threads 2 --decompile-timeout-ms 90000 \
+  < "$FIFO" > "$OUT/server.out" 2> "$OUT/server.err" &
+echo $! > "$OUT/server.pid"
+
+# initialize; the line sits in the fifo until the server's transport reads it
+printf '%s\n' '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"rea-driver","version":"1.0"}}}' > "$FIFO"
+
+for i in $(seq 1 18); do
+  LC_ALL=C grep -aq '"id":1' "$OUT/server.out" 2>/dev/null && break
+  sleep 5
+done
+LC_ALL=C grep -aq '"id":1' "$OUT/server.out" 2>/dev/null || { echo "NO_INIT_RESPONSE"; tail -c 800 "$OUT/server.err"; exit 1; }
+
+printf '%s\n' '{"jsonrpc":"2.0","method":"notifications/initialized"}' > "$FIFO"
+sleep 2
+printf '%s\n' '{"jsonrpc":"2.0","id":2,"method":"tools/list"}' > "$FIFO"
+
+for i in $(seq 1 12); do
+  LC_ALL=C grep -aq '"id":2' "$OUT/server.out" 2>/dev/null && break
+  sleep 5
+done
+LC_ALL=C grep -aq '"id":2' "$OUT/server.out" 2>/dev/null || { echo "NO_TOOLS_LIST"; tail -c 800 "$OUT/server.err"; exit 1; }
+echo "SERVER_STARTED"

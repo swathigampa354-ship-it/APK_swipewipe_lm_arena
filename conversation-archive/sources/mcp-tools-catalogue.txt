@@ -1,0 +1,53 @@
+TOOLS count: 26
+### status
+Report whether an APK is loaded and basic info (path, class count, resource count, load duration).
+### load_apk
+Load an APK / DEX / JAR. Replaces any currently-loaded file. Blocks until indexing completes (typically a few seconds to a minute depending on size). Optional include_packages/exclude_packages, threads, code_cache_size, resources (full|lite|none) override the server CLI defaults for this load.
+### unload_apk
+Release the currently-loaded APK and free memory. No-op if nothing is loaded.
+### get_app_info
+Return package name, version, minSdk/targetSdk, and permissions parsed from AndroidManifest.xml.
+### get_android_manifest
+Return decoded AndroidManifest.xml. Use section=permissions|activities|services|providers|receivers|application to slice (much cheaper than the full manifest, which can be 50KB+). max_bytes truncates the result.
+### get_main_activity_class
+Return the FQN of the LAUNCHER activity (action MAIN + category LAUNCHER).
+### list_classes
+Paginated list of class FQNs. Optional prefix narrows to a package subtree (e.g. 'com.applovin').
+### get_main_application_classes_names
+Return FQNs of classes whose package matches the AndroidManifest 'package' attribute. Useful as a lightweight 'is the right APK loaded' probe.
+### get_class_source
+Return decompiled Java source. If jadx hits anti-decompile stubs (goto obfuscation, 'Code decompiled incorrectly' / 'Method not decompiled' banners), it transparently returns the class SMALI instead, prefixed with '// [jadx java-decompile failed → smali]' (disable with smali_fallback=false). Accepts inner/$Companion names. Truncated at max_bytes AFTER jadx finishes; hard-aborts after decompile_timeout_ms (default 90s). Prefer get_class_summary + get_method_by_name/get_method_body for large classes.
+### get_class_summary
+Lightweight class skeleton: method signatures, field names, inner class names — no method bodies. Cheaper than get_class_source for navigation; use it to pick which method to drill into.
+### get_smali_of_class
+Return smali (DEX disassembly). Smali is often 2-3x source size, so large classes truncate. To page a huge class pass offset (byte offset into the full smali) with max_bytes as the window size; the response header reports total_bytes and next_offset. For a single method prefer get_method_smali. Hard-aborts after decompile_timeout_ms (default 90s). Accepts inner/$Companion names.
+### get_fields_of_class
+List fields of a class. Paginated; use filter to narrow by name (case-insensitive substring); names_only=true for a compact name list.
+### get_inner_classes
+List the inner/nested classes of a class, each with its dotted full_name AND raw_name (the $-joined runtime form, e.g. Outer$Companion) so you can address them directly. Resolves $Companion / inner / fuzzy names.
+### resolve_class
+Resolve a possibly-inaccurate class name (inner/$Companion/dotted/fuzzy) to its exact FQN, or list candidate FQNs when ambiguous. Use this when get_class_source says 'class not found'. Metadata-only (no decompile).
+### get_methods_of_class
+List methods of a class. Paginated; use filter to narrow by name (case-insensitive substring); names_only=true for a compact name list.
+### get_method_by_name
+Return the decompiled Java source of a single method. If overloaded, returns the first match. If jadx fails to decompile the body (anti-decompile stub), transparently returns that method's SMALI with a '// [jadx java-decompile failed → smali]' marker (disable via smali_fallback=false). Accepts inner/$Companion class names.
+### get_method_body
+Return ONE method as Java if it decompiles, else its SMALI — with a JSON envelope reporting which. The method-level counterpart of get_class_source's smali fallback; use it to read a single method out of a huge/obfuscated class without dumping the whole class. Reports mode ('java'|'smali'), fell_back, and any decompile-failure markers. Accepts inner/$Companion class names and overloaded methods (set overload_index).
+### get_method_smali
+Return the SMALI of a single method (all overloads of the name), sliced out of the class disassembly. Cheap way to read one method from a huge class instead of get_smali_of_class. Accepts inner/$Companion class names.
+### search_method_by_name
+Search for methods by name across all classes. Exact match preferred, falls back to substring.
+### search_classes_by_keyword
+Search classes across one or more scopes: 'class' (FQN), 'method', 'field' names (all cheap, metadata-only), and 'code' (decompiled source body — expensive: decompiles each scanned class). Always pass 'package' when using 'code' scope on large APKs, otherwise the scan cap will cut you off. Accepts comma-separated 'search_in' (default 'class'). Returns hits with which scope matched and a code snippet when 'code' matches.
+### get_xrefs_to_class
+List code sites that reference the given class.
+### get_xrefs_to_method
+List code sites that call the given method.
+### get_xrefs_to_field
+List code sites that reference the given field.
+### get_strings
+Return string resources from res/values/strings*.xml. Optionally filter by substring.
+### list_resource_files
+List names of resource files in the APK. With resources=lite this is Manifest + strings XML + arsc; with resources=none only AndroidManifest.xml.
+### get_resource_file
+Return the content of a resource file (text decoded if possible, otherwise base64).

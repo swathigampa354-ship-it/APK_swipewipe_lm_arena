@@ -1,0 +1,70 @@
+{
+  "source": "static/swipewipe_artifact.json",
+  "bytes": 1961911,
+  "evidence_id": "ev_7c530c9459bbabda2efa4f65363e913134593a51e626b3fa2a5e3e058be1ba11",
+  "provider": {
+    "id": "rea-artifact-graph",
+    "name": "REA safe artifact graph provider",
+    "version": "1"
+  },
+  "subject": {
+    "name": "base.apk",
+    "digest": {
+      "sha256": "cfe3d01eed1351737b0894ea2cba85bea8888dd8038b5cfe71cbc4fc36380e22"
+    },
+    "local_path": "/data/data/com.termux/files/home/rea/swipewipe/base.apk",
+    "format": "apk",
+    "architecture": null
+  },
+  "operation": "inspect_artifact",
+  "predicate_type": "rea.analysis",
+  "confidence": "observed",
+  "authority": "shipped-artifact",
+  "substeps": [
+    {
+      "operation": "inventory_artifact",
+      "status": "completed"
+    }
+  ],
+  "observations": [
+    {
+      "observation_id": "aio_edec05efaed3bada19c1aaa55aca03983e9dc8a79229b9680d25643e0b7b67b1",
+      "kind": "root-manifest",
+      "subject": "art_6d636ed01b243c88863417de0a2f892bcb9f182893eabf433ad537d2849f5c55",
+      "value": {
+        "manifest_id": "agm_cf16ac8e42ec2473d98ad50eb96545ea9d09af34d52945512d85deb5f5aa1b2a",
+        "root_artifact_id": "art_6d636ed01b243c88863417de0a2f892bcb9f182893eabf433ad537d2849f5c55",
+        "root_sha256": "cfe3d01eed1351737b0894ea2cba85bea8888dd8038b5cfe71cbc4fc36380e22",
+        "root_format": "apk",
+        "graph_sha256": "d21ee64419d173ac23801f5c9dbc3f9e3709b04cf2bbcafba84ca357e3bc1717",
+        "node_count": 1601,
+        "occurrence_count": 1763,
+        "edge_count": 1762
+      },
+      "evidence_id": "ev_436648422b70c169d7c1462b0193500c3d2fd7f6fbbd2e152a31f0cda47ea17b"
+    }
+  ],
+  "coverage": {
+    "status": "complete-within-substeps",
+    "substeps_completed": 1,
+    "observations_retained": 1,
+    "observations_omitted": 0,
+    "hypotheses_retained": 0,
+    "hypotheses_omitted": 0,
+    "unexplored_branches_retained": 0,
+    "unexplored_branches_omitted": 0,
+    "next_probes_retained": 0,
+    "next_probes_omitted": 0
+  },
+  "limitations": [
+    "Inspection derives bounded static hypotheses and next probes; it does not execute the artifact or claim format-specific semantics.",
+    "ZIP inventory lists central-directory entries only. Non-entry bytes, including an APK Signing Block before the central directory or a ZIP comment after it, are not occurrences."
+  ],
+  "counts": {
+    "hypotheses": 0,
+    "contradictions": 0,
+    "unexplored_branches": 0,
+    "next_probes": 0,
+    "raw_result": "None"
+  }
+}

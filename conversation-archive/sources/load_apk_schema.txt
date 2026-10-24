@@ -1,0 +1,36 @@
+{
+ "name": "load_apk",
+ "inputSchema": {
+  "properties": {
+   "path": {
+    "type": "string",
+    "description": "Absolute path to the APK / DEX / JAR."
+   },
+   "include_packages": {
+    "type": "string",
+    "description": "Comma-separated package/FQN prefixes to KEEP (e.g. com.gcash,com.mynt). Overrides CLI --include-packages for this load."
+   },
+   "exclude_packages": {
+    "type": "string",
+    "description": "Comma-separated package prefixes to DROP (e.g. androidx,kotlin). Overrides CLI --exclude-packages for this load."
+   },
+   "threads": {
+    "type": "integer",
+    "description": "jadx pre-decompile workers. 0 = all cores. Omit to keep the server default (min(CPU,4))."
+   },
+   "code_cache_size": {
+    "type": "integer",
+    "description": "Max decompiled top-level classes kept in RAM (LRU). 0 = unlimited. Omit to keep the server default (64)."
+   },
+   "resources": {
+    "type": "string",
+    "description": "full | lite | none. lite keeps Manifest+strings+arsc; none hides non-manifest resources. jadx 1.5.6 still parses arsc at load."
+   }
+  },
+  "required": [
+   "path"
+  ],
+  "type": "object"
+ },
+ "description": "Load an APK / DEX / JAR. Replaces any currently-loaded file. Blocks until indexing completes (typically a few seconds to a minute depending on size). Optional include_packages/exclude_packages, threads, code_cache_size, resources (full|lite|none) override the server CLI defaults for this load."
+}

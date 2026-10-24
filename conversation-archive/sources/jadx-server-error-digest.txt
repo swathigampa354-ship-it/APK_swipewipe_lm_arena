@@ -1,0 +1,11 @@
+# from mcp_out/server.err (301 lines, 47910 B, sha256 28e073b3f9759845b1f598a0236c545cc3c8d532526130e56bcb4860b4d77389)
+# filtered to 7 ERROR/exception/duplicate lines; 66 WARN and 38 'Code restructure failed' lines summarised below
+[main] INFO jadx.core.utils.android.AndroidResourcesUtils - App 'R' class not found, put all resources ids into : 'com.afternoonproducts.swipewipe.R'
+[main] WARN jadx.core.dex.nodes.RootNode - Found duplicated class: kotlin.Metadata, count: 2, sources:
+[DefaultDispatcher-worker-2] INFO jadx.core.utils.android.AndroidResourcesUtils - App 'R' class not found, put all resources ids into : 'com.afternoonproducts.swipewipe.R'
+[DefaultDispatcher-worker-2] WARN jadx.core.dex.nodes.RootNode - Found duplicated class: kotlin.Metadata, count: 2, sources:
+[DefaultDispatcher-worker-3] ERROR jadx.core.utils.ErrorsCounter - JadxOverflowException in pass: RegionMakerVisitor in method: com.afternoonproducts.swipewipe.one_drive_data_source.OneDriveDataSourceManagerImpl.deleteItemsBatch(java.util.List<java.lang.String>, qb0<? super java.util.Map<java.lang.String, java.lang.Boolean>>):java.lang.Object, file: classes8.dex, details: Regions stack size limit reached
+[DefaultDispatcher-worker-3] ERROR jadx.core.utils.ErrorsCounter - JadxOverflowException in pass: RegionMakerVisitor in method: zd0.a(androidx.compose.ui.input.pointer.AwaitPointerEventScope, kotlin.jvm.functions.Function1, yo):java.lang.Object, file: classes3.dex, details: Regions stack size limit reached
+[jhmcp-decompile] ERROR jadx.core.utils.ErrorsCounter - JadxOverflowException in pass: RegionMakerVisitor in method: wv2.l(java.lang.String, yv2, iw2, rb0):java.lang.Object, file: classes11.dex, details: Regions stack size limit reached
+
+# counts: WARN=66 failed=38 ExceptionHandler=16 ERROR=3

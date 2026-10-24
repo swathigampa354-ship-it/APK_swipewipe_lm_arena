@@ -1,0 +1,189 @@
+{
+  "files": {
+    "conversation-archive/.gitignore": {
+      "bytes": 141,
+      "sha256": "5a07d754804d27e2a715abd6ec321136804dd7c0d67c800aa4f06995b9c52ccb"
+    },
+    "conversation-archive/ARCHIVE_POLICY.md": {
+      "bytes": 3619,
+      "sha256": "b4702ad8a98b932c088991b3914ab90bf625ce51c9cc96ec45b6a6ac684c1091"
+    },
+    "conversation-archive/README.md": {
+      "bytes": 6990,
+      "sha256": "9249bf17302d1f048ea348ddcc60c82b61ac6eb2ceccf94ee5487115efa5a1ff"
+    },
+    "conversation-archive/bin/archive.py": {
+      "bytes": 43531,
+      "sha256": "4d67488485a43024117c9dc50a5bb3d62c6d0952099af7dc649feb29c9bf61af"
+    },
+    "conversation-archive/bin/install.sh": {
+      "bytes": 2459,
+      "sha256": "a6a05a1e2b790d52ff569490efe82664222b44d999b290b0d975abfaaefb1ad5"
+    },
+    "conversation-archive/bin/make_evidence_index.py": {
+      "bytes": 5917,
+      "sha256": "a69807ebc19228a80904b2a10aeb4989edfe9fbb67c8911d7d4780bf18940a8d"
+    },
+    "conversation-archive/bin/redact.py": {
+      "bytes": 10524,
+      "sha256": "47354280d9e4d5d2e053a7118f342f7862d0d1472f36f6ef29788c31e34a6f21"
+    },
+    "conversation-archive/bin/verify.sh": {
+      "bytes": 5670,
+      "sha256": "f8fc919b7fb9c442d6b290965999aba43fa4daaf52db85f095d868873ed6fffe"
+    },
+    "conversation-archive/bin/watch.sh": {
+      "bytes": 1014,
+      "sha256": "dc21ab19fa442c9240f3795de596e57be71a4fbd61ba982bd48f78757cbc0b60"
+    },
+    "conversation-archive/execution-log.md": {
+      "bytes": 9671,
+      "sha256": "8e199f0ee1d1079ce426a4c5dd53f08f27603e88cb533ac79c8915665cb4a72b"
+    },
+    "conversation-archive/launchd/com.arena.archive.plist": {
+      "bytes": 674,
+      "sha256": "1143580d86ccc2306f1623d53121fba5d137f5386ee62cf951e31171b3dbc6f2"
+    },
+    "conversation-archive/records/.gitkeep": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "conversation-archive/records/messages.jsonl": {
+      "bytes": 11592,
+      "sha256": "bd30a8ab271cedfdf53b03a29fa7525421a67fd2b96bc0bbbf2a5a5071863268"
+    },
+    "conversation-archive/records/tool-executions.jsonl": {
+      "bytes": 13728,
+      "sha256": "ea47123aecaab79fadbba742b255492e67f4901c43a32c482d88a70960ab6b4f"
+    },
+    "conversation-archive/reports/.gitkeep": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "conversation-archive/reports/prior-task-gotall-recovery.md": {
+      "bytes": 3890,
+      "sha256": "95f3149b761b7168839c3e36e0399c67a708d41e015d996d6a65e815b08bb2f8"
+    },
+    "conversation-archive/reports/swipewipe-evidence-index.md": {
+      "bytes": 4918,
+      "sha256": "64ffe1bc7952518e52f2050e0434daa2a3aa6a8d4fd980384a4f44f469ebe51f"
+    },
+    "conversation-archive/reports/swipewipe-investigation-report.md": {
+      "bytes": 13186,
+      "sha256": "c01cf5dcbebb4129840cb3a58506e0cb318b2261ac82a044ab2e64acd1819550"
+    },
+    "conversation-archive/reports/swipewipe-progress-log.md": {
+      "bytes": 5695,
+      "sha256": "b6242c0d60cc4ba75150bde598c3baa85fa1465940bccdf828048fb8eb3b48f1"
+    },
+    "conversation-archive/sources/.gitkeep": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "conversation-archive/sources/class-inventory.json": {
+      "bytes": 3945,
+      "sha256": "adb3855d76a14f57d8b8c96c091a94d1e61b572f8950b7a6b44d834c0eddaaef"
+    },
+    "conversation-archive/sources/driver-script.txt": {
+      "bytes": 1667,
+      "sha256": "89ed528e118a566999cf48dcd3108e8c705d73046e50dbaff52080eea082ec30"
+    },
+    "conversation-archive/sources/jadx-run-log.txt": {
+      "bytes": 4489,
+      "sha256": "b737a9766a3afcfadb96be5351ce3ff7be5b29aec657ce6ccbd6838b284458e5"
+    },
+    "conversation-archive/sources/jadx-server-error-digest.txt": {
+      "bytes": 1793,
+      "sha256": "819daa73af4b383e8262afeb24218833c31f1a9468c7d82d970addfafdd240ac"
+    },
+    "conversation-archive/sources/load_apk_schema.txt": {
+      "bytes": 1441,
+      "sha256": "c3d7755b8eb2ec36581ed344a5f1c65770c67a5e07b73b723a695d27d193b8f0"
+    },
+    "conversation-archive/sources/mcp-load-probe-error.json": {
+      "bytes": 112,
+      "sha256": "4ea8001dfe1aa9d1201a04d2eb62d117436c609f94831b6a4fb97df643ab9504"
+    },
+    "conversation-archive/sources/mcp-tools-catalogue.txt": {
+      "bytes": 5405,
+      "sha256": "bffd9128cf88045621e64de318dfe356f9ac129045f2ba055c4bdb84b117fa08"
+    },
+    "conversation-archive/sources/mcp-transcript-digest.json": {
+      "bytes": 1585,
+      "sha256": "3b2ff13cdfebaf43988c9f0407336e9deda7ae808cab02cee92b2f6637580f0b"
+    },
+    "conversation-archive/sources/network_security_rules.xml": {
+      "bytes": 283,
+      "sha256": "37989fe68bc1a60322b550ad8c606e54672c9a4bfc1d2a2faf98186e5ea86624"
+    },
+    "conversation-archive/sources/package-manifest.json": {
+      "bytes": 2704,
+      "sha256": "0b19f2d280745bc071cdd89a06bc2c0646b91eb8991ff351b074014b5234d582"
+    },
+    "conversation-archive/sources/rea-evidence-bundle-summary.json": {
+      "bytes": 2490,
+      "sha256": "264cc3db67f0bddb458b53b0aebbea850553023efd0fc0e5e54dc5c4acf4fa9b"
+    },
+    "conversation-archive/sources/relaunch-log.txt": {
+      "bytes": 817,
+      "sha256": "40dd6f664877882b1f365ab77b63e4b94066f871ae022c5e5a68f791718a5466"
+    },
+    "conversation-archive/sources/swipeapp-structure.json": {
+      "bytes": 4484,
+      "sha256": "59f0ea119284ab94f00e00f26e602b060982a8c9c72b3585690f856b77f73f4a"
+    },
+    "conversation-archive/state/config.json": {
+      "bytes": 866,
+      "sha256": "5e7408826f6aee07b1444c5d82dc756655832aac69d6bca12d1640c61e09d048"
+    },
+    "conversation-archive/state/cursor.json": {
+      "bytes": 220,
+      "sha256": "2d4d940f12fd8e2546142076f643f24cba8554329b3f9f696214bb71786aabeb"
+    },
+    "conversation-archive/systemd/arena-archive.service": {
+      "bytes": 492,
+      "sha256": "e93065a7ae717915471fc4cf17f7bbbb6aa39255894da4e3573265875f1b2729"
+    },
+    "conversation-archive/systemd/arena-archive.timer": {
+      "bytes": 190,
+      "sha256": "44d85468d9a8e9e6b3cede5575caf19def239c3f8091950dd45eebe953b60ecb"
+    },
+    "conversation-archive/termux/README.md": {
+      "bytes": 2473,
+      "sha256": "043344f728ab5037f394cfc5a8873e844e7a7f170d4427c3face702c1ac342f7"
+    },
+    "conversation-archive/termux/arena-archive.sh": {
+      "bytes": 1401,
+      "sha256": "10342ee1c5dd651d7b131ddfb5d96af0b68f9a8bfa8985579c222355eeafd0a1"
+    },
+    "conversation-archive/termux/run-loop.sh": {
+      "bytes": 499,
+      "sha256": "ad898954217331e9ec90363eac093197e597c48dffe4eb41394c9cd8ec00ce0f"
+    },
+    "conversation-archive/tests/__init__.py": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "conversation-archive/tests/test_archive.py": {
+      "bytes": 20308,
+      "sha256": "2e8db27d2b7d31d9a279ccc3e70d999a8d7ae1397186a950fea6d026574cddd2"
+    },
+    "conversation-archive/timeline.md": {
+      "bytes": 1806,
+      "sha256": "605f765fdbc7b3995452b52049ff3a59865c2568fa2a46013290f52ebb1f3d37"
+    },
+    "conversation-archive/transcript.md": {
+      "bytes": 18863,
+      "sha256": "2e5a574da9217ee1a698a7c754a63a1cf71dd3db096737d8dc01486df888028b"
+    }
+  },
+  "generator": "bin/archive.py",
+  "integrity_note": "sha256 of every published file plus the identity of the original evidence bundle, which is intentionally not published.",
+  "policy": "derived deterministically from records/*.jsonl; contains no wall-clock value",
+  "records": {
+    "first_seq": 1,
+    "last_seq": 10,
+    "messages": 6,
+    "tool_executions": 10
+  }
+}
