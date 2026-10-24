@@ -28,7 +28,12 @@ newest last. Timestamps are wall-clock from the machine doing the work (Asia/Cal
 | 21 | 2026-10-24 | redaction false positives | `token = os.environ.get(` and `KEY=CONSTANT` were being redacted; added code-shape detection and stricter bare-value rules (≥16 chars, digit-bearing, non-identifier) |
 | 22 | 2026-10-24 | **`python3 -m unittest discover -s tests -t .` → `Ran 23 tests … OK`** | publication, rebase recovery, crash-resume, lock serialization, gate blocking, importer, spool and manifest integrity all green |
 | 23 | 2026-10-24 | sanitized evidence generated (13 files in `sources/`) | pre-flight secret scan clean; `strings.xml` and the decompiled body excluded by policy |
-| 24 | 2026-10-24 | records appended, `sync` run | see the two sections below for the real result — this row is written before publication so it cannot pre-announce success |
+| 24 | 2026-10-24 | records appended, `sync` run | see the PUSH RESULT section for the verified outcome |
+| 25 | 2026-10-24 | new public bridge URL supplied by the operator; `initialize` + `tools/list` + `oc_exec` all answered **with no credentials** | connected: 7 tools, `oc_exec` ran as `u0_a1078` on Android 15 / CPH2565 |
+| 26 | 2026-10-24 | read-only store survey | 21 sessions / 612 messages / 2,453 parts; `swipewipe`, `com.mwm`, `jadx-headless` = **0 hits**; token-shaped `ghp_` in 6 sessions; `credential`/`account` tables 0 rows |
+| 27 | 2026-10-24 | **`bin/import-bridge.py`** written; 12 paged fetches, every page verified by lines + bytes + sha256 | 90 session messages read → **+28 message records, +110 execution records**; device-side scrub before the bytes leave the phone; `state/bridge-export/*.done` makes it resumable |
+| 28 | 2026-10-24 | exposure finding written up | `reports/bridge-exposure-finding.md`: unauthenticated public shell + `StrictHostKeyChecking=no` tunnel + readable DB holding a live GitHub token |
+| 29 | 2026-10-24 | defects found while building the importer, fixed and re-verified | (a) `/mcp` appended twice by my own helper → `HTTP 404`; (b) the bridge's `{"exit_code","stdout","stderr"}` envelope had to be unwrapped before parsing, and the page hash recomputed over the *scrubbed* blob; (c) an initial masking attempt replaced only the `ghp_` prefix, so the token still crossed the wire — replaced with a full-pattern scrub on the device; (d) `state/bridge-export/` was not gitignored and would have published the raw cache |
 
 ## Verification method (not a promise — a command)
 

@@ -923,10 +923,12 @@ GITIGNORE = """__pycache__/
 *.redact.tmp
 state/archive.lock
 state/spool/
+state/bridge-export/
 state/pending.json
 state/blocked.json
 state/journal.jsonl
 state/publish.json
+state/bridge-export/
 """
 
 

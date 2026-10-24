@@ -26,6 +26,7 @@ conversation-archive/
 │   └── journal.jsonl, publish.json, pending.json, blocked.json, spool/, archive.lock   ← local
 ├── bin/
 │   ├── archive.py             ← the engine (add / add-tool / import-opencode / sync / watch / …)
+│   ├── import-bridge.py       ← paged, integrity-verified export of the phone's OpenCode store
 │   ├── redact.py              ← secret redaction, used on write and as the pre-commit gate
 │   ├── make_evidence_index.py ← regenerates the evidence index from sources/
 │   ├── install.sh             ← install watchers/hooks/timers on this machine
@@ -52,7 +53,9 @@ A=conversation-archive/bin/archive.py
 python3 $A status                       # counters, resume marker, journal tail
 python3 $A add --role user --text-file msg.txt --origin arena-agent --provenance verbatim
 python3 $A add-tool --label "device check" --cmd-file cmd.sh --out-file out.txt --exit 0
-python3 $A import-opencode --db ~/.local/share/opencode/opencode-stable.db   # device history
+python3 $A import-opencode --db ~/.local/share/opencode/opencode-stable.db   # device history, locally
+python3 conversation-archive/bin/import-bridge.py --url https://<host> \
+        --sessions ses_x,ses_y        # device history through the MCP bridge (paged + verified)
 python3 $A sync                         # rebuild views, gate, commit, push (retries + rebase)
 python3 $A verify                       # the 23 tests
 bash    conversation-archive/bin/verify.sh   # tests + scan + "is my HEAD on the remote?"

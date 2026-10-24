@@ -3,6 +3,7 @@ __pycache__/
 *.redact.tmp
 state/archive.lock
 state/spool/
+state/bridge-export/
 state/pending.json
 state/blocked.json
 state/journal.jsonl
