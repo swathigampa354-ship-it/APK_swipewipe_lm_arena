@@ -3,7 +3,7 @@
 
 # Conversation transcript
 
-Built from 10 message record(s) and 12 execution record(s) (last seq 22).
+Built from 11 message record(s) (seq 1..11) and 12 execution record(s) (seq 1..12).
 
 Archives only records visible to the agent. Hidden internal reasoning is out of scope by design.
 
@@ -455,6 +455,20 @@ sources written:
   package-manifest.json 2704 | rea-evidence-bundle-summary.json 2490 | relaunch-log.txt 817
   swipeapp-structure.json 4484
 pre-flight scan: rc=0 (clean); neither strings.xml nor the decompiled body exists in the tree
+```
+
+## 11. system — timestamp unavailable
+
+*origin: arena-agent*  
+*provenance: authored-for-archive*  
+*source: archivist note: post-publication correction*  
+
+```text
+Post-publication correction. The derived transcript header was labelled "(last seq N)" while
+carrying the total row count (10 messages + 12 execution logs -> 22). The line is now labelled with
+the two independent seq ranges, since records/ and tool-logs are numbered separately. Found by
+reading the published file back over HTTPS rather than by trusting the generator. No record content
+changed; only the derived view's header text.
 ```
 
 ## 11. tool — timestamp unavailable

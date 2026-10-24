@@ -537,8 +537,9 @@ def build_derived(c):
             "(*.jsonl) and re-run `archive.py sync`. -->\n")
 
     lines = [head, "", "# Conversation transcript", "",
-             f"Built from {len(recs)} message record(s) and {len(tls)} execution record(s) "
-             f"(last seq {len(all_rows)}).", "",
+             f"Built from {len(recs)} message record(s) (seq 1"
+             f"..{max([r.get('seq') or 0 for r in recs] or [0])}) and {len(tls)} execution "
+             f"record(s) (seq 1..{max([r.get('seq') or 0 for r in tls] or [0])}).", "",
              c["scope_note"], "",
              "Role labels, ordering and any available timestamps are preserved. When a field "
              "was not exposed to the agent it is written as `unavailable` rather than guessed.",
