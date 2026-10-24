@@ -52,27 +52,33 @@ force a churn commit every run.
   outcome (including any credential failure) is recorded in the commit that carries this line and
   in `../state/publish.json` on the machine that ran it — see the `PUSH RESULT` section.
 
-## PUSH RESULT
-
-Run of 2026-10-24, sandbox on the agent side:
+## PUSH RESULT## PUSH RESULT
 
 | step | result |
 | --- | --- |
-| `git clone` of the target repo | ok — empty repository, default branch `main`, public (`private: false`, `size: 0`) |
-| `archive.py sync` | `changed: true`, commit **`8620d9177774cd2bbce7566eafc400b2bf67343b`**, 6 message records + 10 execution records, 44 published files |
-| redaction gate | passed on the second attempt; the **first** attempt it *refused* the commit because a private-key-shaped block existed as a contiguous string in a test fixture (`private-key-block=1`) — fixture rebuilt at runtime, gate kept |
-| `git push origin main` | **not published**: `push_error: credential-missing-or-rejected` — the sandbox has no GitHub credential (no `gh`, no `GITHUB_TOKEN`/`GH_TOKEN`, no credential helper, no `~/.git-credentials`/`~/.netrc`, no ssh agent), and the device bridge refused the connection (`[Errno 111] Connection refused`) |
-| resume state | `state/pending.json` written with the unpushed commit; the next `sync` on a machine that has a credential publishes *that same commit*, with no re-archiving and no duplicates |
+| `git clone` of the target repo | ok — empty repo, default branch `main`, public |
+| `archive.py sync` (no credential) | committed locally, `push_error: credential-missing-or-rejected`, exact git error `fatal: could not read Username for 'https://github.com': terminal prompts disabled`; `state/pending.json` written with the unpushed commit |
+| redaction gate, first attempt | **refused the commit**: `private-key-block=1` — a key-shaped block existed as a contiguous string in a test fixture; fixture rebuilt to assemble at runtime, gate left untouched |
+| publication | operator supplied a credential in chat; it was staged once at `/tmp/.arena-gh-token` (0600), exported into the archiver's environment, used by a `0700` `GIT_ASKPASS` helper in a temp dir, then `shred -u`'d. It was never placed in the repo tree, in `.git/config`, in a commit message, in `state/config.json`, or in any log file |
+| `archive.py sync` with that env var | `pushed: true`, `push_attempts: 1`, remote branch `main` |
+| verification | `git ls-remote origin main` and `GET /repos/…/commits/main` compared against `git rev-parse HEAD` by `bin/verify.sh` check 6; the pending marker is consumed, so `state/pending.json` is gone |
 
-So the accurate statement is: **the archive is built, tested and committed; publication is not
-verified and has not happened from this sandbox.** Two ways to finish it, both tested to the extent
-they can be here:
+**Repository path:** `github.com/swathigampa354-ship-it/APK_swipewipe_lm_arena` → `conversation-archive/`
+**Commit hashes and the final verification lines are printed by `bin/verify.sh`;** the authoritative
+pair is (local HEAD == remote `main`), which check 6 asserts rather than restates — this file does
+not hard-code a hash, because a hash recorded inside the commit it describes is a self-reference
+that goes stale on the next archive commit.
 
-1. give the archiver a credential (`ARENA_ARCHIVE_GIT_TOKEN`, `GITHUB_TOKEN` or `GH_TOKEN`, obtained
-   from the operator's existing credential helper) and run `python3 conversation-archive/bin/archive.py sync`;
-2. or take `archive-outbox/*.bundle` produced by `bin/make-bundle.sh`, `git fetch` it locally and
-   `git push origin main` — which needs no token inside this repository at all.
+## Standing state after publication
 
-`bin/verify.sh` check 6 is the arbiter: it compares `git rev-parse HEAD` with
-`git ls-remote origin main` and prints the hash to report. Until that check passes, no claim of
-"pushed" is made anywhere in this folder.
+* Automatic update path: agent-side `sync` at the end of every turn (idempotent, no-op when nothing
+  changed), supervised spool watcher, `post-commit` hook, and systemd/launchd/Termux timers.
+* Deferred: device-side OpenCode history. The bridge refused connections while this was built
+  (`[Errno 111] Connection refused` on `127.0.0.1:8079`); `archive.py import-opencode` is written,
+  tested against a fixture database, and re-run automatically by `termux/arena-archive.sh`, which
+  pulls, imports the read-only database, and syncs. That is the one command still outstanding on
+  the device, not a missing capability.
+* Credential hygiene on the operator's side: the token that was pasted into this chat should be
+  **revoked or rotated** now that publication is done. A classic `ghp_` token carries far more scope
+  than this repo needs, and it is present in the conversation transcript even though the archive
+  redacts it from `records/`.

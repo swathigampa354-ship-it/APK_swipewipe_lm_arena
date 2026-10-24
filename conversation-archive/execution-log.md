@@ -3,7 +3,7 @@
 
 # Execution log — commands, outputs, errors
 
-Built from 10 execution record(s).
+Built from 11 execution record(s).
 
 ---
 
@@ -247,4 +247,28 @@ sources written:
   package-manifest.json 2704 | rea-evidence-bundle-summary.json 2490 | relaunch-log.txt 817
   swipeapp-structure.json 4484
 pre-flight scan: rc=0 (clean); neither strings.xml nor the decompiled body exists in the tree
+```
+
+## 11. push archive to GitHub (credential via env, shredded after use) — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `completed` |
+| `exit_code` | `0` |
+| `duration_ms` | `2069` |
+| `output_bytes` | `451` |
+| `output_sha256` | `5432dcbe962ff2209d3a8f2491008a718df5107cf0a357caddd2607653dc11cf` |
+
+```text
+$ export ARENA_ARCHIVE_GIT_TOKEN=$(tr -d '\n' < /tmp/.arena-gh-token)   # value never written into this repo
+python3 bin/archive.py --repo . sync
+shred -u /tmp/.arena-gh-token
+
+--- output ---
+sync -> {'changed': True, 'pushed': True, 'push_attempts': 1, 'push_error': None,
+           'remote_url': 'https://github.com/swathigampa354-ship-it/APK_swipewipe_lm_arena.git'}
+pre-push  : fatal: could not read Username for 'https://github.com': terminal prompts disabled
+            (this is the recorded failure of the credential-less attempt, kept as evidence)
+post-push : state/pending.json consumed (absent), 23 tests OK, credential scan clean
 ```
