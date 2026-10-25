@@ -33,12 +33,12 @@
       "sha256": "738d010c769186f2ffcad3cfd115b471b16925d9b343540bd3423965078df700"
     },
     "conversation-archive/bin/make_evidence_index.py": {
-      "bytes": 5917,
-      "sha256": "a69807ebc19228a80904b2a10aeb4989edfe9fbb67c8911d7d4780bf18940a8d"
+      "bytes": 7065,
+      "sha256": "20f788b2464aa3f697894914b39917c693c7319ee7b905f3fd52d3e90571b49b"
     },
     "conversation-archive/bin/redact.py": {
-      "bytes": 10524,
-      "sha256": "47354280d9e4d5d2e053a7118f342f7862d0d1472f36f6ef29788c31e34a6f21"
+      "bytes": 11780,
+      "sha256": "be279207dc59fcbe82de031ecde49ef545bd66e9351682bcc2f46b0576fad048"
     },
     "conversation-archive/bin/verify.sh": {
       "bytes": 5670,
@@ -49,8 +49,8 @@
       "sha256": "dc21ab19fa442c9240f3795de596e57be71a4fbd61ba982bd48f78757cbc0b60"
     },
     "conversation-archive/execution-log.md": {
-      "bytes": 172334,
-      "sha256": "96ba9a800bdaede8f0dcfea88fc744c409a644a5edaacd0022fbb9450aa6ebca"
+      "bytes": 181511,
+      "sha256": "1651e7cbed8947e15a125fbf514b82e7f45fc1a6130fe15705521c866171d123"
     },
     "conversation-archive/launchd/com.arena.archive.plist": {
       "bytes": 674,
@@ -61,12 +61,12 @@
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "conversation-archive/records/messages.jsonl": {
-      "bytes": 55883,
-      "sha256": "1081edaa56216375211da055e8dfe7388e677596236d3b3db22517199f26e0cd"
+      "bytes": 61812,
+      "sha256": "c2d11def171e54ef900ce7f2a2b725fe570d622001d3935ac0fdcc3646beb0e9"
     },
     "conversation-archive/records/tool-executions.jsonl": {
-      "bytes": 249887,
-      "sha256": "0ce189946a94358bda64187328962c23d72e29c0af87de0f2d96ad0ffd228dca"
+      "bytes": 263418,
+      "sha256": "d55fda6e7ba52c50988568e00c0f4a75f7c40274c10e33bad8113ecb18f139fa"
     },
     "conversation-archive/reports/.gitkeep": {
       "bytes": 0,
@@ -89,16 +89,20 @@
       "sha256": "95f3149b761b7168839c3e36e0399c67a708d41e015d996d6a65e815b08bb2f8"
     },
     "conversation-archive/reports/swipewipe-evidence-index.md": {
-      "bytes": 4918,
-      "sha256": "64ffe1bc7952518e52f2050e0434daa2a3aa6a8d4fd980384a4f44f469ebe51f"
+      "bytes": 5402,
+      "sha256": "13324086ad21d0254a0ca2a4101208bd42e37d9a4383e79b3cad509adb14c1e6"
+    },
+    "conversation-archive/reports/swipewipe-final-report.md": {
+      "bytes": 15577,
+      "sha256": "d8be9aec3802d0eafb7c8c03f6f5f9114c99368335339c36e5340e8a1b1c4684"
     },
     "conversation-archive/reports/swipewipe-investigation-report.md": {
       "bytes": 13186,
       "sha256": "c01cf5dcbebb4129840cb3a58506e0cb318b2261ac82a044ab2e64acd1819550"
     },
     "conversation-archive/reports/swipewipe-progress-log.md": {
-      "bytes": 11733,
-      "sha256": "496ab7378113734c63b55f1cc3706a192e8b31f323180e3e812ba278170a40b3"
+      "bytes": 12870,
+      "sha256": "f841d64a538f422280a4a6c3995b3683fca0034b31e645056bb14c304a6a6386"
     },
     "conversation-archive/sources/.gitkeep": {
       "bytes": 0,
@@ -153,8 +157,8 @@
       "sha256": "40dd6f664877882b1f365ab77b63e4b94066f871ae022c5e5a68f791718a5466"
     },
     "conversation-archive/sources/run_mcp-driver.py": {
-      "bytes": 13475,
-      "sha256": "61c57a9d869c3af41c04c0748de0bc17a99183b0cd541a70686ae139e45abdc2"
+      "bytes": 13799,
+      "sha256": "057adf203fb146364ae0205efe5cdad7d2735b4c2718f91d75189691da4d6ecf"
     },
     "conversation-archive/sources/run_mcp-launch.sh": {
       "bytes": 978,
@@ -170,7 +174,7 @@
     },
     "conversation-archive/state/cursor.json": {
       "bytes": 223,
-      "sha256": "289da82644e1924880bbd1558f64b7bca5f0ab00d06871183022108aff62486b"
+      "sha256": "eee024ceb7401af04424effee5aedb5660466b88705fa9205d6b45e13df30ab4"
     },
     "conversation-archive/systemd/arena-archive.service": {
       "bytes": 492,
@@ -201,12 +205,12 @@
       "sha256": "2e8db27d2b7d31d9a279ccc3e70d999a8d7ae1397186a950fea6d026574cddd2"
     },
     "conversation-archive/timeline.md": {
-      "bytes": 18327,
-      "sha256": "2a729521b813ce7033432cbe385f3a079e0234c3ba837cb259e1c767e6290f98"
+      "bytes": 19388,
+      "sha256": "72666e823913d3407c769804694091e3b8dc12e4c9d690bc4675e46d4c997b8e"
     },
     "conversation-archive/transcript.md": {
-      "bytes": 192573,
-      "sha256": "c69957848d576b47ba01f20ebf6cc4d93944dce427c543ed43a1b5b205db862c"
+      "bytes": 206367,
+      "sha256": "0b9f3b828483c0454c9621fe01a9dad2a63d41105584629efdd788245a2a80cc"
     }
   },
   "generator": "bin/archive.py",
@@ -214,8 +218,8 @@
   "policy": "derived deterministically from records/*.jsonl; contains no wall-clock value",
   "records": {
     "first_seq": 1,
-    "last_seq": 144,
-    "messages": 44,
-    "tool_executions": 144
+    "last_seq": 155,
+    "messages": 46,
+    "tool_executions": 155
   }
 }

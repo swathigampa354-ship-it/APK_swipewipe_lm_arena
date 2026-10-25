@@ -73,6 +73,30 @@ for f in mani["files"]:
     lines.append(f"| `{f['path']}` | {f['bytes']:,} | `{f['sha256'][:16]}…` | "
                  f"`{pub_as}` — {note} |")
 
+# Anything the agent produced and published under sources/ is evidence too; without this it would
+# be in the repo tree but absent from the index that claims to list every artefact.
+import glob, hashlib
+referenced = {v[0] for v in PUBLISH_STATE.values() if v[0] != "—"}
+mine = []
+for path in sorted(glob.glob(os.path.join(ROOT, "sources", "*"))):
+    rel = os.path.relpath(path, ROOT)
+    if rel in referenced or not os.path.isfile(path):
+        continue
+    data = open(path, "rb").read()
+    mine.append((rel, len(data), hashlib.sha256(data).hexdigest()))
+if mine:
+    lines += ["",
+              "## Agent-authored tooling published under `sources/` (this session)",
+              "",
+              "| file | bytes | sha256 | what it is |",
+              "| --- | --- | --- | --- |",]
+    DESC = {
+        "sources/run_mcp-driver.py": "the jadx-MCP driver used for the resume; mock-validated off-device",
+        "sources/run_mcp-launch.sh": "single-instance launcher (pidfile stop, MemAvailable preflight)",
+    }
+    for rel, n, h in mine:
+        lines.append(f"| `{rel}` | {n:,} | `{h[:16]}…` | {DESC.get(rel, 'session artefact')} |")
+
 lines += [
     "",
     "## Derived evidence used by the report",

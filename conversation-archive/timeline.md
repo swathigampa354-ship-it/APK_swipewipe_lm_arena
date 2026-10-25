@@ -95,7 +95,9 @@ Timestamps are recorded only when the source exposed them; `unavailable` is a fa
 | 43 | 2026-10-22T05:46:07 | tool | opencode-bridge | verbatim-db-export | `57d13824af01` | 1418 |
 | 44 | unavailable | assistant | arena-agent | authored-for-archive | `a0a2ebefe39a` | 1763 |
 | 44 | 2026-10-22T05:46:07 | tool | opencode-bridge | verbatim-db-export | `6e9c775a74b2` | 513 |
+| 45 | unavailable | user | arena-user | verbatim | `dd9b9c2c6274` | 1510 |
 | 45 | 2026-10-22T05:46:15 | tool | opencode-bridge | verbatim-db-export | `152aa9e24b27` | 1714 |
+| 46 | unavailable | assistant | arena-agent | authored-for-archive | `b4ccd1881543` | 3528 |
 | 46 | 2026-10-22T05:46:15 | tool | opencode-bridge | verbatim-db-export | `94ef5fb38789` | 1539 |
 | 47 | 2026-10-22T05:46:41 | tool | opencode-bridge | verbatim-db-export | `8565f0d0772d` | 392 |
 | 48 | 2026-10-22T05:46:53 | tool | opencode-bridge | verbatim-db-export | `7515682d5076` | 868 |
@@ -195,3 +197,14 @@ Timestamps are recorded only when the source exposed them; `unavailable` is a fa
 | 142 | unavailable | tool | arena-agent | tool-capture | `6b410f23cd37` | 380 |
 | 143 | unavailable | tool | arena-agent | tool-capture | `95c76d50a27a` | 560 |
 | 144 | unavailable | tool | arena-agent | tool-capture | `9311e2589ad5` | 556 |
+| 145 | unavailable | tool | arena-agent | tool-capture | `06ee0a18d192` | 342 |
+| 146 | unavailable | tool | arena-agent | tool-capture | `118ad6a0f221` | 530 |
+| 147 | unavailable | tool | arena-agent | tool-capture | `02cf602b236d` | 385 |
+| 148 | unavailable | tool | arena-agent | tool-capture | `45aee8c349f3` | 705 |
+| 149 | unavailable | tool | arena-agent | tool-capture | `f9744e99d928` | 413 |
+| 150 | unavailable | tool | arena-agent | tool-capture | `55ef0d249abd` | 437 |
+| 151 | unavailable | tool | arena-agent | tool-capture | `65a80ef5b090` | 377 |
+| 152 | unavailable | tool | arena-agent | tool-capture | `37170a887629` | 737 |
+| 153 | unavailable | tool | arena-agent | tool-capture | `5004797c8dc3` | 605 |
+| 154 | unavailable | tool | arena-agent | tool-capture | `e0e236dc6904` | 603 |
+| 155 | unavailable | tool | arena-agent | tool-capture | `7f6b30a6aca7` | 414 |

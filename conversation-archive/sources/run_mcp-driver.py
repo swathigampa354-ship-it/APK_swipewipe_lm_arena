@@ -116,11 +116,19 @@ def main():
                 free_kb = int(line.split()[1]); break
     except OSError:
         pass
-    if not mock and free_kb and free_kb < 3_200_000:
+    heap_mb = 2048
+    for tok in argv:
+        if tok.startswith("-Xmx"):
+            try:
+                heap_mb = int(tok[4:].rstrip("mMkK"))
+            except ValueError:
+                pass
+    min_free = int(os.environ.get("RECON_MIN_FREE_KB", str(int(heap_mb * 1024 * 1.35))))
+    if not mock and free_kb and free_kb < min_free:
         # this phone was OOM-killed with the whole Termux group once already; do not
         # start a 2 GB heap when the kernel has less than ~3.1 GB to give
-        log(f"refusing to start: MemAvailable={free_kb} kB is too low for -Xmx2048m")
-        print(f"LOW_MEMORY MemAvailable_kB={free_kb}"); return 3
+        log(f"refusing to start: MemAvailable={free_kb} kB < required {min_free} kB for -Xmx{heap_mb}m")
+        print(f"LOW_MEMORY MemAvailable_kB={free_kb} need_kB={min_free}"); return 3
     if not mock:
         log(f"preflight MemAvailable={free_kb} kB")
     m = MCP(argv)

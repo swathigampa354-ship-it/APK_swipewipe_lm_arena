@@ -44,6 +44,14 @@ re-verify it. Bytes and hashes refer to the *local working copy* taken in this s
 | `static/swipewipe_artifact.json` | 1,961,911 | `b3d3b90cd506c1ee…` | `sources/rea-evidence-bundle-summary.json` — summary only (1.96 MB inventory graph) |
 | `tools/swipewipe_mcp.sh` | 1,667 | `89ed528e118a5669…` | `sources/driver-script.txt` — published verbatim (no secrets) |
 
+## Agent-authored tooling published under `sources/` (this session)
+
+| file | bytes | sha256 | what it is |
+| --- | --- | --- | --- |
+| `sources/package-manifest.json` | 2,704 | `0b19f2d280745bc0…` | session artefact |
+| `sources/run_mcp-driver.py` | 13,799 | `057adf203fb14636…` | the jadx-MCP driver used for the resume; mock-validated off-device |
+| `sources/run_mcp-launch.sh` | 978 | `ac8751bd29c13dca…` | single-instance launcher (pidfile stop, MemAvailable preflight) |
+
 ## Derived evidence used by the report
 
 | claim | source | how to re-check |

@@ -61,6 +61,13 @@ _KEYNAME = (r"[A-Za-z0-9_.\-]*"
             r"|refresh[_-]?token|client[_-]?secret|private[_-]?key|auth[_-]?token"
             r"|credential|token|key)")
 
+NAMED += [
+    # APK/<string name="…"> resource form of a credential: the assignment-shaped patterns
+    # above need an '=' or ':', so a resource string slipped through the gate entirely.
+    ("android-resource-secret", re.compile(
+        "(?is)<(string|item)\\s+name=\"([^\"]*(?:api[_-]?key|api[_-]?secret|client[_-]?token|client[_-]?secret|auth[_-]?token|access[_-]?token|refresh[_-]?token|id[_-]?token|app[_-]?secret|consumer[_-]?secret|password|passwd|secret)[^\"]*)\"[^>]*\\s*>([^<]{4,})</\\1>")),
+]
+
 ASSIGN_QUOTED = re.compile(
     rf"""(?ix)
     (?P<prefix>["']?{_KEYNAME}["']?)(?P<sep>\s*[:=]\s*)
@@ -135,6 +142,11 @@ def _looks_secret(tok: str) -> bool:
     return _entropy(body) >= 4.3
 
 
+# Redaction must be idempotent: re-scanning text that already carries a marker must not
+# raise new findings, or the pre-commit gate blocks its own published output.
+_REDACT_MARK = re.compile(r"^\s*[\[\u00ab{(]?REDACTED", re.I)
+_MARK_EXEMPT_KINDS = {"android-resource-secret"}
+
 def redact_text(text: str, extra_patterns=()):
     """Return ``(clean_text, findings)``. ``findings`` lists ``{kind, line}``."""
     findings = []
@@ -142,11 +154,18 @@ def redact_text(text: str, extra_patterns=()):
 
     for kind, rx in list(NAMED) + [("custom", re.compile(p)) for p in extra_patterns]:
         def _sub(m, kind=kind):
+            if kind in _MARK_EXEMPT_KINDS:
+                g = next((x for x in reversed(m.groups()) if isinstance(x, str)), "")
+                if _REDACT_MARK.match(g.strip()):
+                    return m.group(0)   # already a marker: no new finding, no re-redaction
             findings.append({"kind": kind, "line": out.count("\n", 0, m.start()) + 1})
             if kind == "url-credentials":
                 return m.group(1) + "REDACTED:REDACTED@"
             if kind == "npm-auth-token":
                 return m.group(1) + "=[REDACTED]"
+            if kind == "android-resource-secret":
+                return "<%s name=\"%s\">[REDACTED:%s]</%s>" % (
+                    m.group(1), m.group(2), "android-resource-secret", m.group(1))
             if kind in ("http-auth-header",):
                 return m.group(1) + " REDACTED"
             return _mark(kind, m.group(0))

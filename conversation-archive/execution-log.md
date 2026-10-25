@@ -3,7 +3,7 @@
 
 # Execution log — commands, outputs, errors
 
-Built from 144 execution record(s).
+Built from 155 execution record(s).
 
 ---
 
@@ -4214,4 +4214,202 @@ $ init --remote-url …; patch cmd_init precedence (arg > ARENA_ARCHIVE_REMOTE_U
 
 --- output ---
 Ran 23 tests in 21.681s — OK (no regression). After `init --remote origin --branch main --remote-url https://github.com/swathigampa354-ship-it/APK_swipewipe_lm_arena.git`: git remote -v shows origin fetch+push, and state/config.json now carries the URL, so a future sandbox restart recovers the remote from the archive alone. py_compile OK.
+```
+
+## 145. apktool release-manifest decode of Swipewipe — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `ok` |
+| `exit_code` | `0` |
+| `duration_ms` | `182000` |
+| `output_bytes` | `235` |
+| `output_sha256` | `1c0efc0901a2cb5d7b9e1ef1b499d92afb51be83ce3423d49e436e1b254965f1` |
+
+```text
+$ JAVA_OPTS=-Xmx1024m apktool d -f -o ~/rea/swipewipe/apktool_out ~/rea/swipewipe/base.apk
+
+--- output ---
+rc=0 in ~2 min ([04:23:11] apktool begin -> [04:26:13] apktool ok rc=0). 18 top-level entries: AndroidManifest.xml apktool.yml assets original res smali + smali_classes2..12 unknown. 92 in-package .smali files across 11 dex containers.
+```
+
+## 146. deleteItemsBatch empty-list semantics (smali) — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `ok` |
+| `exit_code` | `0` |
+| `duration_ms` | `2400` |
+| `output_bytes` | `394` |
+| `output_sha256` | `fa264e977c91f36e7cda6280a0a086334013d396f8cef2e444842de8ab98466f` |
+
+```text
+$ awk '/^.method.*deleteItemsBatch/,/^.end method/' OneDriveDataSourceManagerImpl.smali | grep -nE 'isEmpty|LinkedBatch…'
+
+--- output ---
+224: invoke-interface/range {p1}, List;->isEmpty()Z | 228: if-eqz v0, :cond_4 | 230-236: sget-object Lux0;->a (Kotlin emptyMap) … return-object v0 | 240: new-instance LinkedHashMap | 392/428: BatchRequestItem/BatchRequest | 537: OneDriveApiService->batchRequest | 730: List->size()I. Class strings: "/me/drive/items/", "DELETE". HYPOTHESIS REFUTED: empty list returns before any network call.
+```
+
+## 147. callers of deleteItemsBatch — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `ok` |
+| `exit_code` | `0` |
+| `duration_ms` | `2300` |
+| `output_bytes` | `289` |
+| `output_sha256` | `31f5f53f801e3207beedbb82fc761617e1521a6112eee252df86e4fc25c10146` |
+
+```text
+$ grep -rn 'deleteItemsBatch' apktool_out/smali*/com/afternoonproducts/ | sed …
+
+--- output ---
+3 files only: OneDriveDataSourceManager.smali:42 (name array) + :126 (public abstract), Impl, and Impl$deleteItemsBatch$1.smali. No in-package call site -> caller is out-of-package obfuscated (qb0/jc0/ux0/mh1), excluded by the include-packages filter: NOT ESTABLISHED which list is passed.
+```
+
+## 148. manifest security attrs + permissions — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `ok` |
+| `exit_code` | `0` |
+| `duration_ms` | `6000` |
+| `output_bytes` | `545` |
+| `output_sha256` | `b6bbdef6431cc5ebfbd522bdd2114a3e471edfc034c8d5effa6b16ee44ce2731` |
+
+```text
+$ grep -oE '(allowBackup|fullBackupContent|networkSecurityConfig|dataExtractionRules)="[^"]*"' AndroidManifest.xml; grep -oE 'uses-permission…'
+
+--- output ---
+allowBackup=false, fullBackupContent=false, dataExtractionRules=@xml/appsflyer_data_extraction_rules, networkSecurityConfig=@xml/network_security_rules; usesCleartextTraffic/debuggable/testOnly absent. 29 uses-permission incl. READ_MEDIA_IMAGES/VIDEO/VISUAL_USER_SELECTED, ACCESS_MEDIA_LOCATION, READ+WRITE_EXTERNAL_STORAGE, USE_BIOMETRIC/FINGERPRINT, RECEIVE_BOOT_COMPLETED, FOREGROUND_SERVICE_DATA_SYNC, POST_NOTIFICATIONS, BILLING/CHECK_LICENSE, 4x ACCESS_ADSERVICES_*, com.amazon.privacypass.ATTEST, DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION.
+```
+
+## 149. network_security_rules.xml + appsflyer extraction rules (from APK) — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `ok` |
+| `exit_code` | `0` |
+| `duration_ms` | `4000` |
+| `output_bytes` | `307` |
+| `output_sha256` | `df04a0211bdbadbe3ab42905ef38b093b57ee303c2218c2cef3c7d52792373d6` |
+
+```text
+$ cat res/xml/network_security_rules.xml; cat res/xml/appsflyer_data_extraction_rules.xml
+
+--- output ---
+cleartextTrafficPermitted="true" for 10.0.2.2 and 0.0.0.0, both includeSubdomains="true" (8 lines, complete file). AppsFlyer rules exclude sharedpref/appsflyer-data, appsflyer-purchase-data and database/afpurchases.db from cloud-backup AND device-transfer -> AppsFlyer holds purchase data in afpurchases.db.
+```
+
+## 150. prior-run ceiling read from the snapshot — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `ok` |
+| `exit_code` | `0` |
+| `duration_ms` | `1800` |
+| `output_bytes` | `336` |
+| `output_sha256` | `ffe9794f31b397a19c352a5025ebb7566da6c7a017e442617f06873c9510ef17` |
+
+```text
+$ python3 json walk of static/swipewipe_artifact.json + grep ids in mcp_out/server.out
+
+--- output ---
+operation inventory_artifact, 1 substep, 1 observation, 0 hypotheses/contradictions/next_probes, raw_result null; node_count 1601 occurrence_count 1763 edge_count 1762; root_sha256 cfe3d01e… == staged base.apk. server.out ids = [1,13,14,15,16], one isError; id16 = SwipeApp 21,946 chars/431 lines. So: inventory only, 1 of 52 classes.
+```
+
+## 151. secret sweep of strings.xml (values withheld) — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `ok` |
+| `exit_code` | `0` |
+| `duration_ms` | `1200` |
+| `output_bytes` | `310` |
+| `output_sha256` | `aebc7d59006cb7eaf1290e7a3e9044f0c685663d5c5983f18a42fb3e2bc382b1` |
+
+```text
+$ re against static/strings.xml; fingerprints only
+
+--- output ---
+google_api_key len=39 AIza-shape sha256[:12]=1d69ec76740b; facebook_client_token len=32 sha[:12]=3b85303130b1; com_facebook_device_auth_instructions len=70 (template, not secret); 19 other secret-named entries are UI copy (e.g. http_auth_dialog_password len=8). No private key blocks, no AKIA, no JWT, no ya29.
+```
+
+## 152. redaction gate defect: facebook_client_token LEAKED — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `ok` |
+| `exit_code` | `0` |
+| `duration_ms` | `4000` |
+| `output_bytes` | `663` |
+| `output_sha256` | `971fcd9c40c3d6afb791e028e61409cf6ecdd213d279c5b4d1e4fd265f49bd9d` |
+
+```text
+$ redact.redact_text(strings.xml) -> check value presence
+
+--- output ---
+First run: google_api_key REDACTED (google-api-key pattern), facebook_client_token LEAKS - 32-hex matched none of the 15 patterns. My first patch script died on nested triple quotes (no write) and my first 'fixed' test was a FALSE PASS because redact_text returns (text, findings) and I membership-tested the tuple instead of the text. Corrected: NAMED += android-resource-secret anchored on the resource name + a handler that keeps the name and redacts only the value. Now: LEAK TEST NONE, 13 findings raised, `<string name="facebook_client_token">[REDACTED:android-resource-secret]</string>`, and `commit <40-hex> sha256 <32-hex>` untouched (no false positive).
+```
+
+## 153. jadx headless MCP attempt (2nd, proven flags) — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `error` |
+| `exit_code` | `1` |
+| `duration_ms` | `300000` |
+| `output_bytes` | `423` |
+| `output_sha256` | `01598e86cd5e641a6acd835de9f357362f1d71d00bbc172733b4d7930c22b899` |
+
+```text
+$ java -Xmx1200m -jar jadx-headless-mcp-0.7.1-all.jar --transport stdio --apk base.apk --resources none --include-packages … --threads 2 --decompile-timeout-ms 90000
+
+--- output ---
+driver.log: Loaded classes: 91473, methods: 496680, instructions: 13536913 (load ~31 s at 04:26:44, vs 94 s with --resources full). Driver never received the initialize response; progress.jsonl unchanged, classes=0. Historical success (ids 1,13,14,15,16) came from a FIFO + output-FILE driver, so the difference to test is file-backed stdout vs a Python pipe. Not completed: A/B probe interrupted by my own concurrency bug.
+```
+
+## 154. my concurrency + self-kill mistakes that cost device access — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `error` |
+| `exit_code` | `1` |
+| `duration_ms` | `600000` |
+| `output_bytes` | `497` |
+| `output_sha256` | `d4e7dcf51ef53407297d100bd91f11ca478f4cdfa19cddd586d937b9b594c3c2` |
+
+```text
+$ pkill -f 'jadx-headless-mc[p]' … ; setsid nohup bash run_all.sh (client retried on 502)
+
+--- output ---
+Retry-on-502 started THREE concurrent run_all.sh (12505/10591/10752 pattern) each with its own JVM heap; I killed duplicates by explicit PID (bracket-trick patterns so the regex cannot match its own command line) and added flock to run_all.sh. Later an A/B probe left two JVMs (srv=2) alive and the bridge went 502 permanently (serveo edge 0.6 s, DNS fine). Bridge remained 502 across 6 further probes over ~2 min, so reminders/image_grouping/AppDatabase_Impl pruning SQL were NOT read from smali.
+```
+
+## 155. single-instance + memory guards added to the tooling — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `ok` |
+| `exit_code` | `0` |
+| `duration_ms` | `30000` |
+| `output_bytes` | `282` |
+| `output_sha256` | `2aeddf3d4de9f7fd6b2edccb3642ecebce93726d9ed03b9bc8d864b836b5148c` |
+
+```text
+$ flock -n 8 on .run_all.lock; MemAvailable >= 1.35*heap preflight; RECON_XMX; .driver.pid; attempts=1 for launches
+
+--- output ---
+Verified: mock suite asserts both load paths (java=5 smali=1, load_apk CALLED vs SKIPPED) -> MOCK SUITE PASS; flock proved live on device (3 launches -> 1 survivor, others logged LOCK_HELD_BY_OTHER_RUN); harness moved from /tmp into work/recon/mock/ so it survives sandbox restarts.
 ```
