@@ -10,11 +10,11 @@
     },
     "conversation-archive/README.md": {
       "bytes": 7606,
-      "sha256": "f3fcafed50e6f368add3849d0e1607518c25b289fa126780b1b02a4a50cfc7a1"
+      "sha256": "14dc7bdd54b19a43c75d0adfd15528ae5265db5fb007d5ad3d62c8872ead095c"
     },
     "conversation-archive/bin/archive.py": {
-      "bytes": 45436,
-      "sha256": "befa2745f604717f5e1dbdeb180f7ef3e344ef8a3583a0b361d29a9fac391f8f"
+      "bytes": 45799,
+      "sha256": "ccaf9a474582e2bb63d11c7e210eb221d3f0134bd12db1a89d58a4c48507fcc9"
     },
     "conversation-archive/bin/finish-push.sh": {
       "bytes": 1701,
@@ -37,8 +37,8 @@
       "sha256": "20f788b2464aa3f697894914b39917c693c7319ee7b905f3fd52d3e90571b49b"
     },
     "conversation-archive/bin/redact.py": {
-      "bytes": 11780,
-      "sha256": "be279207dc59fcbe82de031ecde49ef545bd66e9351682bcc2f46b0576fad048"
+      "bytes": 11805,
+      "sha256": "ca8473554008f28e75fe82e725fef8933b021de9f5eea07f43980e27fcc779c6"
     },
     "conversation-archive/bin/verify.sh": {
       "bytes": 5670,
@@ -169,12 +169,12 @@
       "sha256": "59f0ea119284ab94f00e00f26e602b060982a8c9c72b3585690f856b77f73f4a"
     },
     "conversation-archive/state/config.json": {
-      "bytes": 766,
-      "sha256": "dd79a5ab34d6abcfacd5765c0f05f06ca8b99a9fe24b9a194379db1068f01e53"
+      "bytes": 832,
+      "sha256": "5fa9efb417fb4d6cb9372d10076ce61660da40ce73397fe60303998a3a82c31e"
     },
     "conversation-archive/state/cursor.json": {
-      "bytes": 157,
-      "sha256": "6d746214c500fd48d85aceaf83bc07dbbaa6b5194a39829b87b4752d19bc3411"
+      "bytes": 223,
+      "sha256": "eee024ceb7401af04424effee5aedb5660466b88705fa9205d6b45e13df30ab4"
     },
     "conversation-archive/systemd/arena-archive.service": {
       "bytes": 492,
@@ -201,8 +201,8 @@
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "conversation-archive/tests/test_archive.py": {
-      "bytes": 20308,
-      "sha256": "2e8db27d2b7d31d9a279ccc3e70d999a8d7ae1397186a950fea6d026574cddd2"
+      "bytes": 22399,
+      "sha256": "a00a7cf9fc681f5dd1b30745df390dc3ddc94bf1c3c6f2b6cf1bf466a6ab8188"
     },
     "conversation-archive/timeline.md": {
       "bytes": 19388,

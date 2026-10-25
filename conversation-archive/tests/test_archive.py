@@ -407,5 +407,40 @@ class TestDerived(Base):
         self.assertIn("unparseable record", open(self.rel("transcript.md"), encoding="utf-8").read())
 
 
+    def test_bare_init_preserves_and_restores_the_remote(self):
+        """The sandbox snapshot excludes .git/config, so `init` is the recovery path:
+        it must never blank a stored remote_url, and a bare `init` must re-add `origin`."""
+        url = "https://example.invalid/seed/repo.git"
+        cfgp = os.path.join(self.archive, "state", "config.json")
+        self.ar(["init", "--remote", "origin", "--remote-url", url, "--git-repo", self.repo])
+        self.assertEqual(json.load(open(cfgp))["remote_url"], url)
+        sh(["git", "-C", self.repo, "remote", "remove", "origin"])          # the lost file
+        self.ar(["init", "--git-repo", self.repo])                           # no flags at all
+        self.assertEqual(json.load(open(cfgp)).get("remote_url"), url, "stored url was reset")
+        self.assertEqual(sh(["git", "-C", self.repo, "remote", "get-url", "origin"]).stdout.strip(),
+                         url, "origin was not restored from the archive alone")
+
+    def test_redaction_is_idempotent_over_its_own_markers(self):
+        """Re-scanning published output must not raise new findings, or the pre-commit gate
+        blocks its own redaction markers (it did once: android-resource-secret=2)."""
+        sys.path.insert(0, os.path.join(self.archive, "bin"))
+        try:
+            import redact as rd
+        finally:
+            sys.path.pop(0)
+        val = "".join(["0123456789abcdef0123456789", "ab", "cd"])
+        raw = f'<string name="facebook_client_token">{val}</string>'
+        once, f1 = rd.redact_text(raw)
+        self.assertTrue(any(x["kind"] == "android-resource-secret" for x in f1), f1)
+        self.assertNotIn(val, once)
+        twice, f2 = rd.redact_text(once)
+        self.assertEqual([x["kind"] for x in f2], [], f"second pass raised {f2}")
+        self.assertEqual(twice, once, "output is not a fixed point")
+        probe = "commit " + "0" * 40 + " sha256 " + "a" * 64 + "\n"
+        kept, f3 = rd.redact_text(probe)
+        self.assertEqual(kept, probe, "git object ids must survive the gate")
+        self.assertEqual(f3, [])
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

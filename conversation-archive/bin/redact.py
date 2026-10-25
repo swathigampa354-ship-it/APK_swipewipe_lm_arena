@@ -156,8 +156,8 @@ def redact_text(text: str, extra_patterns=()):
         def _sub(m, kind=kind):
             if kind in _MARK_EXEMPT_KINDS:
                 g = next((x for x in reversed(m.groups()) if isinstance(x, str)), "")
-                if _REDACT_MARK.match(g.strip()):
-                    return m.group(0)   # already a marker: no new finding, no re-redaction
+                if _REDACT_MARK.match(g.strip()) or _is_placeholder(g.strip()):
+                    return m.group(0)   # marker or template placeholder: not a secret
             findings.append({"kind": kind, "line": out.count("\n", 0, m.start()) + 1})
             if kind == "url-credentials":
                 return m.group(1) + "REDACTED:REDACTED@"

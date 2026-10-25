@@ -35,7 +35,7 @@ conversation-archive/
 │   ├── install.sh             ← install watchers/hooks/timers on this machine
 │   ├── watch.sh               ← supervisor loop (restarts the archiver, logs to state/journal)
 │   └── verify.sh              ← tests + whole-tree secret scan + remote equality check
-├── tests/test_archive.py      ← 23 end-to-end tests driving the real CLI against real git remotes
+├── tests/test_archive.py      ← 25 end-to-end tests driving the real CLI against real git remotes
 ├── systemd/                   ← user service + timer (unattended safety net)
 ├── launchd/                   ← macOS equivalent
 └── termux/                    ← Android/Termux deployment (boot resume + periodic sync)
@@ -60,7 +60,7 @@ python3 $A import-opencode --db ~/.local/share/opencode/opencode-stable.db   # d
 python3 conversation-archive/bin/import-bridge.py --url https://<host> \
         --sessions ses_x,ses_y        # device history through the MCP bridge (paged + verified)
 python3 $A sync                         # rebuild views, gate, commit, push (retries + rebase)
-python3 $A verify                       # the 23 tests
+python3 $A verify                       # the 25 tests
 bash    conversation-archive/bin/verify.sh   # tests + scan + "is my HEAD on the remote?"
 ```
 

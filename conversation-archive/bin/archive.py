@@ -959,13 +959,17 @@ def cmd_init(a):
         p = repo_path(REL[k])
         if not os.path.exists(p):
             open(p, "a").close()
-    c = dict(DEFAULT_CONFIG)
-    gitdir = a.git_repo or os.path.abspath(os.path.join(ROOT, ".."))
+    # init must never reset a previously stored config: `--repo` alone (no --remote/--branch)
+    # used to rewrite state/config.json from DEFAULT_CONFIG, which silently dropped the remote
+    # URL that the .git/config-recovery path depends on.
+    stored = load_json(REL["config"], {}) or {}
+    c = {**DEFAULT_CONFIG, **stored}
+    gitdir = a.git_repo or c.get("git_repo") or os.path.abspath(os.path.join(ROOT, ".."))
     if a.branch:
         c["branch"] = a.branch
+    a.remote = a.remote or c.get("remote") or "origin"   # a bare init must still self-heal
     if a.remote:
         code, url, _ = git(gitdir, "remote", "get-url", a.remote)
-        stored = load_json(REL["config"], {}) or {}
         # .git/config is not persisted by several sandbox/CI cache schemes, so "ask git" is
         # not a reliable way to *recover* the URL -- it must also be seedable from outside.
         c.update(remote=a.remote,
