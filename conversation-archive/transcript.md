@@ -3,7 +3,7 @@
 
 # Conversation transcript
 
-Built from 46 message record(s) (seq 1..46) and 155 execution record(s) (seq 1..155).
+Built from 46 message record(s) (seq 1..46) and 161 execution record(s) (seq 1..161).
 
 Archives only records visible to the agent. Hidden internal reasoning is out of scope by design.
 
@@ -4582,4 +4582,88 @@ $ flock -n 8 on .run_all.lock; MemAvailable >= 1.35*heap preflight; RECON_XMX; .
 
 --- output ---
 Verified: mock suite asserts both load paths (java=5 smali=1, load_apk CALLED vs SKIPPED) -> MOCK SUITE PASS; flock proved live on device (3 launches -> 1 survivor, others logged LOCK_HELD_BY_OTHER_RUN); harness moved from /tmp into work/recon/mock/ so it survives sandbox restarts.
+```
+
+## 156. tool — timestamp unavailable
+
+*origin: arena-agent*  
+*provenance: tool-capture*  
+*source: agent tool execution: redaction gate: two defects found by its own commit path*  
+*label: redaction gate: two defects found by its own commit path*  
+
+```text
+$ sync -> blocked-by-redaction-gate (android-resource-secret=2, then =1); patch _sub guard
+
+--- output ---
+The gate blocked its own published output twice, both times on text that is not a secret: (1) an already-emitted `[REDACTED:…]` marker, (2) an f-string placeholder `{val}` inside the new regression test. Fixed with an idempotence guard that reuses the existing _is_placeholder() notion, so markers, `$VAR`, `{template}`, `<x>` and `%s` produce no finding. Verified: placeholders/markers -> 0 findings; a real 32-hex value -> 1 finding and scrubbed; second pass over scrubbed output -> 0 findings, bytes stable.
+```
+
+## 157. tool — timestamp unavailable
+
+*origin: arena-agent*  
+*provenance: tool-capture*  
+*source: agent tool execution: archiver recovery defect: bare init blanked the stored remote URL*  
+*label: archiver recovery defect: bare init blanked the stored remote URL*  
+
+```text
+$ python3 bin/archive.py init (no flags) -> state/config.json remote_url null
+
+--- output ---
+Reproduced from history: commit 0d7058e held remote_url, and a bare `init` this turn rewrote state/config.json from DEFAULT_CONFIG, nulling it -> exactly the mechanism meant to survive a lost .git/config destroyed its own seed. Fix: cmd_init now merges {**DEFAULT_CONFIG, **stored} and defaults a.remote to the stored name, so a flag-less init both keeps the URL and re-adds origin. `git remote get-url origin` after bare init returns the URL.
+```
+
+## 158. tool — timestamp unavailable
+
+*origin: arena-agent*  
+*provenance: tool-capture*  
+*source: agent tool execution: two regression tests added; suite 23 -> 25*  
+*label: two regression tests added; suite 23 -> 25*  
+
+```text
+$ python3 -m unittest discover -s tests -p 'test_*.py'
+
+--- output ---
+test_bare_init_preserves_and_restores_the_remote + test_redaction_is_idempotent_over_its_own_markers. Ran 25 tests in 21.981s -> OK. README count corrected 23 -> 25.
+```
+
+## 159. tool — timestamp unavailable
+
+*origin: arena-agent*  
+*provenance: tool-capture*  
+*source: agent tool execution: commit + push to the operator's repo (credential staged 0600, shredded after)*  
+*label: commit + push to the operator's repo (credential staged 0600, shredded after)*  
+
+```text
+$ ARENA_ARCHIVE_GIT_TOKEN=$(cat /tmp/.arena-gh-token) python3 bin/archive.py sync
+
+--- output ---
+pushed: true, push_attempts: 1, commit faf337b25dedfb6111589aae613d8e42b19d5b50, records 46, tools 155, published_files 53. Credential path: written once to a 0600 temp file, consumed via the archiver's 0700 GIT_ASKPASS helper, then shred -u; never in .git/config, the commit message, the tree, or this record. git ls-remote origin main == local HEAD.
+```
+
+## 160. tool — timestamp unavailable
+
+*origin: arena-agent*  
+*provenance: tool-capture*  
+*source: agent tool execution: final verification + unauthenticated readback from GitHub*  
+*label: final verification + unauthenticated readback from GitHub*  
+
+```text
+$ bash bin/verify.sh; curl raw.githubusercontent.com/… (8 files)
+
+--- output ---
+verify.sh: 10 passed, 0 failed (25 tests; no credential-shaped value under conversation-archive/; no churn; MANIFEST matches; transcript regenerates identically; remote main == local HEAD faf337b2; GitHub API confirms; pending/blocked absent; state gitignored). Readback of report/records/bin/tests/sources: all http=200, ghp_ count 0, AIza count 0 in every file -> the two target resource secrets and the git token are not published.
+```
+
+## 161. tool — timestamp unavailable
+
+*origin: arena-agent*  
+*provenance: tool-capture*  
+*source: agent tool execution: device access for the 50 remaining classes: still down at end of turn*  
+*label: device access for the 50 remaining classes: still down at end of turn*  
+
+```text
+$ curl -o /dev/null -w '%{http_code}' https://adicit.serveousercontent.com/ (x8 over ~12 min)
+
+--- output ---
+HTTP 502 every time while DNS still resolves (37.27.37.254) and serveo's edge answers in ~0.6 s -> the phone-side upstream is gone. Cause attributed to my own concurrency/memory mistakes (3 concurrent pipelines, then 2 orphan jadx JVMs at -Xmx1200m). Nothing further could be read from the device; reminders, image_grouping and AppDatabase_Impl pruning SQL remain NOT ESTABLISHED, and no Java source was produced for the 50 classes. base.apk, jar, apktool_out (rc=0), the driver and scope.md remain on the phone for a resumed run via bash ~/rea/swipewipe/launch.sh.
 ```

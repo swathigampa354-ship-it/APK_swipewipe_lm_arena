@@ -208,3 +208,9 @@ Timestamps are recorded only when the source exposed them; `unavailable` is a fa
 | 153 | unavailable | tool | arena-agent | tool-capture | `5004797c8dc3` | 605 |
 | 154 | unavailable | tool | arena-agent | tool-capture | `e0e236dc6904` | 603 |
 | 155 | unavailable | tool | arena-agent | tool-capture | `7f6b30a6aca7` | 414 |
+| 156 | unavailable | tool | arena-agent | tool-capture | `2d65fc21541b` | 617 |
+| 157 | unavailable | tool | arena-agent | tool-capture | `68d46f385e15` | 537 |
+| 158 | unavailable | tool | arena-agent | tool-capture | `93c12ab5e2f5` | 236 |
+| 159 | unavailable | tool | arena-agent | tool-capture | `0e2fb93c9ddf` | 449 |
+| 160 | unavailable | tool | arena-agent | tool-capture | `3387ff0b7091` | 515 |
+| 161 | unavailable | tool | arena-agent | tool-capture | `6e7d56ca6a35` | 675 |

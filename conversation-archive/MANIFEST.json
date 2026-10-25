@@ -49,8 +49,8 @@
       "sha256": "dc21ab19fa442c9240f3795de596e57be71a4fbd61ba982bd48f78757cbc0b60"
     },
     "conversation-archive/execution-log.md": {
-      "bytes": 181511,
-      "sha256": "1651e7cbed8947e15a125fbf514b82e7f45fc1a6130fe15705521c866171d123"
+      "bytes": 186605,
+      "sha256": "a92d98bee2e4f77ca2eb5e5797e0fd6d5482c8ce6a4b4ffa4fba9e7a9106bda4"
     },
     "conversation-archive/launchd/com.arena.archive.plist": {
       "bytes": 674,
@@ -65,8 +65,8 @@
       "sha256": "c2d11def171e54ef900ce7f2a2b725fe570d622001d3935ac0fdcc3646beb0e9"
     },
     "conversation-archive/records/tool-executions.jsonl": {
-      "bytes": 263418,
-      "sha256": "d55fda6e7ba52c50988568e00c0f4a75f7c40274c10e33bad8113ecb18f139fa"
+      "bytes": 270948,
+      "sha256": "9d9e3eb00ba3ccc280a4b12123643037ddef06e70ee402b4334c9f03e818d3b5"
     },
     "conversation-archive/reports/.gitkeep": {
       "bytes": 0,
@@ -174,7 +174,7 @@
     },
     "conversation-archive/state/cursor.json": {
       "bytes": 223,
-      "sha256": "eee024ceb7401af04424effee5aedb5660466b88705fa9205d6b45e13df30ab4"
+      "sha256": "f71e7f37a72c8ce8c342a023608f8c0e318573d4a14364a4738038a702ab6ae0"
     },
     "conversation-archive/systemd/arena-archive.service": {
       "bytes": 492,
@@ -205,12 +205,12 @@
       "sha256": "a00a7cf9fc681f5dd1b30745df390dc3ddc94bf1c3c6f2b6cf1bf466a6ab8188"
     },
     "conversation-archive/timeline.md": {
-      "bytes": 19388,
-      "sha256": "72666e823913d3407c769804694091e3b8dc12e4c9d690bc4675e46d4c997b8e"
+      "bytes": 19874,
+      "sha256": "a1ffdf06fb9a7ac84481248ad5f40d9b553d922fd1b6a71ddde0a3d13f74e75b"
     },
     "conversation-archive/transcript.md": {
-      "bytes": 206367,
-      "sha256": "0b9f3b828483c0454c9621fe01a9dad2a63d41105584629efdd788245a2a80cc"
+      "bytes": 211062,
+      "sha256": "9a75cad8f649b57eedd8bdc25a3ea6115298916e95c8929c52774f924068119f"
     }
   },
   "generator": "bin/archive.py",
@@ -218,8 +218,8 @@
   "policy": "derived deterministically from records/*.jsonl; contains no wall-clock value",
   "records": {
     "first_seq": 1,
-    "last_seq": 155,
+    "last_seq": 161,
     "messages": 46,
-    "tool_executions": 155
+    "tool_executions": 161
   }
 }
