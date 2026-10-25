@@ -1,9 +1,9 @@
 {
   "branch": "main",
   "generator": "bin/archive.py sync",
-  "last_seq": 142,
+  "last_seq": 144,
   "records": 44,
   "remote": "origin",
-  "remote_url": null,
-  "tools": 142
+  "remote_url": "https://github.com/swathigampa354-ship-it/APK_swipewipe_lm_arena.git",
+  "tools": 144
 }

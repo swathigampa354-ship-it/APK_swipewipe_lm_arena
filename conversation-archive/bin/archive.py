@@ -668,6 +668,12 @@ def cmd_sync(a):
         before = {"records": len(read_records("records")), "tools": len(read_records("tools"))}
         cur = load_json(REL["cursor"], {}) or {}
         repo = c["git_repo"]
+        if c.get("remote") and not c.get("remote_url"):
+            code, url, _ = git(repo, "remote", "get-url", c["remote"])
+            if code == 0 and url.strip():
+                c["remote_url"] = url.strip()
+                save_config(c)
+                journal("remote_url_recovered", url=url.strip())
         if not os.path.isdir(os.path.join(repo, ".git")):
             journal("sync_skipped", reason="not a git repo", repo=repo)
             print(json.dumps({"ok": False, "error": f"no git repo at {repo}"}))
@@ -871,7 +877,10 @@ def main(argv=None):
     sub = ap.add_subparsers(dest="cmd", required=True)
 
     p = sub.add_parser("init"); p.add_argument("--remote"); p.add_argument("--branch")
-    p.add_argument("--git-repo"); p.set_defaults(fn=cmd_init)
+    p.add_argument("--git-repo")
+    p.add_argument("--remote-url", help="seed the remote URL into state/config.json so a lost "
+                                       ".git/config can be rebuilt from the archive alone")
+    p.set_defaults(fn=cmd_init)
 
     p = sub.add_parser("add"); p.add_argument("--role", default="assistant")
     p.add_argument("--text"); p.add_argument("--text-file")
@@ -957,9 +966,13 @@ def cmd_init(a):
     if a.remote:
         code, url, _ = git(gitdir, "remote", "get-url", a.remote)
         stored = load_json(REL["config"], {}) or {}
+        # .git/config is not persisted by several sandbox/CI cache schemes, so "ask git" is
+        # not a reliable way to *recover* the URL -- it must also be seedable from outside.
         c.update(remote=a.remote,
-                 remote_url=(url.strip() if code == 0 and url.strip()
-                             else stored.get("remote_url")))
+                 remote_url=(getattr(a, "remote_url", None)
+                             or os.environ.get("ARENA_ARCHIVE_REMOTE_URL")
+                             or (url.strip() if code == 0 and url.strip()
+                                 else stored.get("remote_url"))))
     c["git_repo"] = gitdir
     c["repo"] = ROOT
     # Re-assert the remote every init: some environments persist the worktree but not

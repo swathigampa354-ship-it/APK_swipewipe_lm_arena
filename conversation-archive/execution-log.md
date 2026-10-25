@@ -3,7 +3,7 @@
 
 # Execution log — commands, outputs, errors
 
-Built from 142 execution record(s).
+Built from 144 execution record(s).
 
 ---
 
@@ -4178,4 +4178,40 @@ $ python3 run_mcp.py --mock (RECON_MOCK_LOADED=0 and 1)
 
 --- output ---
 loaded=0: exit=0 java=5 smali=1 classes=6 errors=0 pidfile=1901; loaded=1: exit=0 java=5 smali=1 pidfile=1903 load=SKIPPED re-index. Earlier in the same loop: caught SyntaxError from a duplicated splice line and the `already` NameError (used L126, assigned L142) — both fixed here, never shipped to the phone
+```
+
+## 143. archiver defect: origin not recoverable after sandbox restart — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `error` |
+| `exit_code` | `0` |
+| `duration_ms` | `3400` |
+| `output_bytes` | `395` |
+| `output_sha256` | `2b84abf95c8631defb4fac2b8cf57154967b63861725536d38c166174ff46cdf` |
+
+```text
+$ git remote -v (empty); git config --get-regexp '^remote\.' (empty); cat state/config.json | grep remote_url; git ls-remote https://github.com/… main
+
+--- output ---
+`git remote -v` empty and no remote.* config -> .git/config not persisted (known snapshot exclusion). state/config.json had "remote_url": null, so `archive.py init` could not restore it: cmd_init derived the URL from `git remote get-url`, the very file that was lost — a circular recovery. Public ls-remote on the documented URL still returned 5442ffd5, proving the repo and network were fine.
+```
+
+## 144. fix: seedable remote URL + self-healing sync (3 edits to bin/archive.py) — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `ok` |
+| `exit_code` | `0` |
+| `duration_ms` | `25000` |
+| `output_bytes` | `342` |
+| `output_sha256` | `84906a6b271d693a03576d34bb35ee529021bd28657fd101f8fe3d9608208d93` |
+
+```text
+$ init --remote-url …; patch cmd_init precedence (arg > ARENA_ARCHIVE_REMOTE_URL > git > stored); patch cmd_sync to persist a discovered URL into state/config.json; python3 -m unittest discover tests
+
+--- output ---
+Ran 23 tests in 21.681s — OK (no regression). After `init --remote origin --branch main --remote-url https://github.com/swathigampa354-ship-it/APK_swipewipe_lm_arena.git`: git remote -v shows origin fetch+push, and state/config.json now carries the URL, so a future sandbox restart recovers the remote from the archive alone. py_compile OK.
 ```
