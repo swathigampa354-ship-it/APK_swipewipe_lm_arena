@@ -169,12 +169,12 @@
       "sha256": "59f0ea119284ab94f00e00f26e602b060982a8c9c72b3585690f856b77f73f4a"
     },
     "conversation-archive/state/config.json": {
-      "bytes": 832,
-      "sha256": "5fa9efb417fb4d6cb9372d10076ce61660da40ce73397fe60303998a3a82c31e"
+      "bytes": 766,
+      "sha256": "dd79a5ab34d6abcfacd5765c0f05f06ca8b99a9fe24b9a194379db1068f01e53"
     },
     "conversation-archive/state/cursor.json": {
-      "bytes": 223,
-      "sha256": "eee024ceb7401af04424effee5aedb5660466b88705fa9205d6b45e13df30ab4"
+      "bytes": 157,
+      "sha256": "6d746214c500fd48d85aceaf83bc07dbbaa6b5194a39829b87b4752d19bc3411"
     },
     "conversation-archive/systemd/arena-archive.service": {
       "bytes": 492,

@@ -19,7 +19,7 @@
     "conversation-archive"
   ],
   "remote": "origin",
-  "remote_url": "https://github.com/swathigampa354-ship-it/APK_swipewipe_lm_arena.git",
+  "remote_url": null,
   "repo": "/home/user/work/APK/conversation-archive",
   "scope_note": "Archives only records visible to the agent. Hidden internal reasoning is out of scope by design."
 }
