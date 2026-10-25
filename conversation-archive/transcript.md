@@ -3,7 +3,7 @@
 
 # Conversation transcript
 
-Built from 42 message record(s) (seq 1..42) and 136 execution record(s) (seq 1..136).
+Built from 44 message record(s) (seq 1..44) and 142 execution record(s) (seq 1..142).
 
 Archives only records visible to the agent. Hidden internal reasoning is out of scope by design.
 
@@ -1989,6 +1989,36 @@ curl: (23) client returned ERROR on write of 1317 bytes
 ls: cannot access '/tmp/jadx.zip': No such file or directory
 ```
 
+## 43. user — timestamp unavailable
+
+*origin: arena-user*  
+*provenance: recovered-from-session-context*  
+*source: user instruction with the new bridge endpoint (verbatim; line-wrap and &amp; entity are as received)*  
+
+```text
+[pasted terminal output, wrapping artifacts preserved as received]
+
+     (yours):
+
+         https://adicit.serveousercontent.com
+
+         Update the LM Arena config URL to:
+
+         {
+           "mcpServers": {
+             "lmarena_opencode": {
+               "url": "https://adicit.
+         serveousercontent.com/mcp",
+               "transport": "http"
+             }
+           }
+         }
+
+         Runtime status:
+
+Connect to it &amp; Do that task. Continue.
+```
+
 ## 43. tool — 2026-10-22T05:46:07
 
 *origin: opencode-bridge*  
@@ -2011,6 +2041,22 @@ tool: read (status=completed)
 
 (End of file - total 1 lines)
 </content>
+```
+
+## 44. assistant — timestamp unavailable
+
+*origin: arena-agent*  
+*provenance: authored-for-archive*  
+*source: assistant turn record (visible statements; not internal reasoning)*  
+
+```text
+Connected to the re-pointed bridge (https://adicit.serveousercontent.com/mcp): DNS 37.27.37.254, root 404, 7 MCP tools, and used it to run the Swipewipe resume under measurement rather than trusting agent status.
+
+Findings: the phone had restarted Termux (opencode serve PID 9814, was 31618), which is what killed the first detached driver — but everything I staged survived (base.apk 92,066,971 B, jar 42,619,858 B + jar.done), and .driver.lock mtime 12:46 proved the launch call the proxy had 502'd actually executed. The relaunched driver never answered initialize for ~10 min; measuring /proc showed jadx at 1.5 cores, RSS 1.50→1.68 GB, MemFree 28 MB, driver.log frozen after "Loaded classes: 91473". Root cause was mine: I passed --resources full where the proven original driver uses --resources none, so jadx built resource IDs for the whole APK; I also re-indexed needlessly via load_apk and set code_cache_size 0 (unbounded RAM cache).
+
+Fixes: matched the proven flags, status-first so load_apk only runs when needed, cache 128, refuse to start under MemAvailable 3.1 GB with RECON_XMX override, and pidfile lifecycle replacing `pkill -f` — which had self-matched the bridge's own exec wrapper and preceded the permanent 502. Also recovered my lost local driver from the phone via oc_read_file (sandbox /tmp is not persistent), and caught a NameError I had introduced (already used at L126, assigned at L142) with the local mock suite before it ever shipped — both load paths now pass.
+
+Status: the bridge is unreachable (4 probes, HTTP 502 in 0.55 s while DNS resolves), so the RE remains incomplete — no classes, no summary.json, no HANDOFF.md. Resume path: bash ~/rea/swipewipe/launch.sh on a live bridge; the driver skips every class already written.
 ```
 
 ## 44. tool — 2026-10-22T05:46:07
@@ -4232,4 +4278,88 @@ $ 5x bridge retries ; getent hosts fwrjj-106-76-224-45.free.pinggy.net ; getent 
 
 --- output ---
 all bridge calls failed; the tunnel hostname does not resolve, while pinggy.io -> 200 and api.github.com -> 200 -> the free pinggy tunnel expired, not a sandbox network fault. Final driver-launch call was dropped by the tunnel after 65 s, so whether run_mcp.py started is UNCONFIRMED
+```
+
+## 137. tool — timestamp unavailable
+
+*origin: arena-agent*  
+*provenance: tool-capture*  
+*source: agent tool execution: new bridge probe + tools/list*  
+*label: new bridge probe + tools/list*  
+
+```text
+$ getent hosts adicit.serveousercontent.com; curl -o /dev/null -w '%{http_code}' https://…/; POST /mcp tools/list
+
+--- output ---
+37.27.37.254; root http=404; tools -> ['oc_prompt','oc_sessions','oc_exec','oc_read_file','oc_write_file','oc_delete_file','oc_list_dir']
+```
+
+## 138. tool — timestamp unavailable
+
+*origin: arena-agent*  
+*provenance: tool-capture*  
+*source: agent tool execution: device state after Termux restart*  
+*label: device state after Termux restart*  
+
+```text
+$ curl /global/health; /session/status; stat base.apk/jar; wc -l progress.jsonl; ls mcp_out/classes; pgrep -fa 'run_mcp|jadx-headless'; tail driver.log
+
+--- output ---
+{"healthy":true,"version":"1.19.3"}; /session/status -> {} (queue empty); base.apk 92066971; jar 42619858 jar.done=DONE_JAR; .driver.lock mtime Oct 24 12:46 (launch DID run); progress=1 line; classes=0; summary ABSENT; HANDOFF ABSENT; run_mcp.py 12216 B sha 2d500465 (local copy lost with /tmp); driver.log ends "Loaded classes: 91473, methods: 496680, instructions: 13536913"; opencode serve now PID 9814 (was 31618) -> Termux restarted
+```
+
+## 139. tool — timestamp unavailable
+
+*origin: arena-agent*  
+*provenance: tool-capture*  
+*source: agent tool execution: measure whether jadx was working or wedged*  
+*label: measure whether jadx was working or wedged*  
+
+```text
+$ read /proc/$JP/stat cpu ticks + status, twice, 14 s apart
+
+--- output ---
+cpu_ticks 19831 -> 22580 (=27.5 s CPU in 17.6 s wall, ~1.5 cores), state S, Threads 27, VmRSS 1,501,472 -> 1,678,828 kB; /proc/meminfo MemFree 28,804 kB, MemAvailable 1,487,468 kB -> actively loading under memory pressure, not wedged like the cp case
+```
+
+## 140. tool — timestamp unavailable
+
+*origin: arena-agent*  
+*provenance: tool-capture*  
+*source: agent tool execution: diagnosis against the proven config*  
+*label: diagnosis against the proven config*  
+
+```text
+$ diff my argv vs sources/driver-script.txt (the original recovered driver)
+
+--- output ---
+original: `java -Xmx2048m -jar $JAR --transport stdio --apk $APK --resources none --include-packages com.afternoonproducts.swipewipe,com.mwm.swipewipe --threads 2 --decompile-timeout-ms 90000`; mine used --resources full and then a redundant load_apk with code_cache_size 0 -> cause of the stall
+```
+
+## 141. tool — timestamp unavailable
+
+*origin: arena-agent*  
+*provenance: tool-capture*  
+*source: agent tool execution: self-inflicted outage: pkill pattern matched its own wrapper*  
+*label: self-inflicted outage: pkill pattern matched its own wrapper*  
+
+```text
+$ pkill -f run_mcp.py; pkill -f jadx-headless-mcp; … (sent via oc_exec)
+
+--- output ---
+bridge then returned HTTP 502 permanently: serveo edge answers in 0.55 s, DNS resolves, root/mcp both 502 -> the device-side upstream is gone. The command text is embedded in `bash -c '<cmd>'`, so `pkill -f run_mcp.py` matched the exec wrapper itself. Launch of the fixed driver never confirmed.
+```
+
+## 142. tool — timestamp unavailable
+
+*origin: arena-agent*  
+*provenance: tool-capture*  
+*source: agent tool execution: off-device validation of the hardened driver*  
+*label: off-device validation of the hardened driver*  
+
+```text
+$ python3 run_mcp.py --mock (RECON_MOCK_LOADED=0 and 1)
+
+--- output ---
+loaded=0: exit=0 java=5 smali=1 classes=6 errors=0 pidfile=1901; loaded=1: exit=0 java=5 smali=1 pidfile=1903 load=SKIPPED re-index. Earlier in the same loop: caught SyntaxError from a duplicated splice line and the `already` NameError (used L126, assigned L142) — both fixed here, never shipped to the phone
 ```

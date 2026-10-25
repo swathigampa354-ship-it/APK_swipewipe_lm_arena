@@ -49,8 +49,8 @@
       "sha256": "dc21ab19fa442c9240f3795de596e57be71a4fbd61ba982bd48f78757cbc0b60"
     },
     "conversation-archive/execution-log.md": {
-      "bytes": 166225,
-      "sha256": "b5e8100367ce2ed14757e7ea3c35b11bc1c4b940f6d73a96e8fc0ecb657ad92c"
+      "bytes": 170511,
+      "sha256": "0169b93987c05eb4a52dccaab0bc4601a6e710ac7e78f677ddc639605d093dfd"
     },
     "conversation-archive/launchd/com.arena.archive.plist": {
       "bytes": 674,
@@ -61,12 +61,12 @@
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "conversation-archive/records/messages.jsonl": {
-      "bytes": 52643,
-      "sha256": "4234ea5e75b89387d014a39d44e95bbd3dd333ddd791553103517ed5472c1007"
+      "bytes": 55883,
+      "sha256": "1081edaa56216375211da055e8dfe7388e677596236d3b3db22517199f26e0cd"
     },
     "conversation-archive/records/tool-executions.jsonl": {
-      "bytes": 240631,
-      "sha256": "39aa5cbebd0574ea9181d055de736cf2d8c3175302976c2d9bc247a8773193b2"
+      "bytes": 247238,
+      "sha256": "30254f49f8ffe3a571f49c3fc4a9df4ba2bdd5d88e4a3d099484e42847bcd407"
     },
     "conversation-archive/reports/.gitkeep": {
       "bytes": 0,
@@ -81,8 +81,8 @@
       "sha256": "777943ac67db158c2a9e063d4cf0798c96f4d2ccc60a4a66c086bbd6ef77d7e7"
     },
     "conversation-archive/reports/opencode-delegation-report.md": {
-      "bytes": 8594,
-      "sha256": "40604eefd4fa833d6185b827bc4d3f67d06b60bfcd13b97f6c0592e8ec989193"
+      "bytes": 12073,
+      "sha256": "ccc442a25b07e7f45d480d3cd172f13d0c99a44d1127efe32f5674c586e1250b"
     },
     "conversation-archive/reports/prior-task-gotall-recovery.md": {
       "bytes": 3890,
@@ -97,8 +97,8 @@
       "sha256": "c01cf5dcbebb4129840cb3a58506e0cb318b2261ac82a044ab2e64acd1819550"
     },
     "conversation-archive/reports/swipewipe-progress-log.md": {
-      "bytes": 10358,
-      "sha256": "cf5782ae8b7d041ffbc4bb02d51f08dfbf9dd0eae101cd77cae63fff4fc86d73"
+      "bytes": 11265,
+      "sha256": "02fc693d7020936ea6fd31018c93fe91987abebda34d2510ec23e553b0593004"
     },
     "conversation-archive/sources/.gitkeep": {
       "bytes": 0,
@@ -152,6 +152,14 @@
       "bytes": 817,
       "sha256": "40dd6f664877882b1f365ab77b63e4b94066f871ae022c5e5a68f791718a5466"
     },
+    "conversation-archive/sources/run_mcp-driver.py": {
+      "bytes": 13475,
+      "sha256": "61c57a9d869c3af41c04c0748de0bc17a99183b0cd541a70686ae139e45abdc2"
+    },
+    "conversation-archive/sources/run_mcp-launch.sh": {
+      "bytes": 978,
+      "sha256": "ac8751bd29c13dcac4672c73d4c0db146974a651742cf63619015c023f523e4f"
+    },
     "conversation-archive/sources/swipeapp-structure.json": {
       "bytes": 4484,
       "sha256": "59f0ea119284ab94f00e00f26e602b060982a8c9c72b3585690f856b77f73f4a"
@@ -162,7 +170,7 @@
     },
     "conversation-archive/state/cursor.json": {
       "bytes": 223,
-      "sha256": "376411b13babdbdb6c29c404ba2adf9de61bb8aaa8ecdd6e4212e28a1f3cde27"
+      "sha256": "b8e64b434e374b13a44346dba88d92fe78333cba7224f20b959461112658d8fd"
     },
     "conversation-archive/systemd/arena-archive.service": {
       "bytes": 492,
@@ -193,12 +201,12 @@
       "sha256": "2e8db27d2b7d31d9a279ccc3e70d999a8d7ae1397186a950fea6d026574cddd2"
     },
     "conversation-archive/timeline.md": {
-      "bytes": 17488,
-      "sha256": "8854a5e9b94971260790ae2ee986ee6e2d07216f4392bf5037198ffd060bac28"
+      "bytes": 18165,
+      "sha256": "521f38daf1b14428f6489090c2e1cfcfa07694e7eaac932de3aef6a30834f19e"
     },
     "conversation-archive/transcript.md": {
-      "bytes": 184426,
-      "sha256": "ca7414e902c34231e9020955723e2da200c132dfc806b91af9e15e45ff104e14"
+      "bytes": 190873,
+      "sha256": "d6997357f201453c496c96cfcea04512bbea8b4e2d7a3dd7df1edd8eeb604892"
     }
   },
   "generator": "bin/archive.py",
@@ -206,8 +214,8 @@
   "policy": "derived deterministically from records/*.jsonl; contains no wall-clock value",
   "records": {
     "first_seq": 1,
-    "last_seq": 136,
-    "messages": 42,
-    "tool_executions": 136
+    "last_seq": 142,
+    "messages": 44,
+    "tool_executions": 142
   }
 }

@@ -3,7 +3,7 @@
 
 # Execution log — commands, outputs, errors
 
-Built from 136 execution record(s).
+Built from 142 execution record(s).
 
 ---
 
@@ -4070,4 +4070,112 @@ $ 5x bridge retries ; getent hosts fwrjj-106-76-224-45.free.pinggy.net ; getent 
 
 --- output ---
 all bridge calls failed; the tunnel hostname does not resolve, while pinggy.io -> 200 and api.github.com -> 200 -> the free pinggy tunnel expired, not a sandbox network fault. Final driver-launch call was dropped by the tunnel after 65 s, so whether run_mcp.py started is UNCONFIRMED
+```
+
+## 137. new bridge probe + tools/list — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `ok` |
+| `exit_code` | `0` |
+| `duration_ms` | `2200` |
+| `output_bytes` | `137` |
+| `output_sha256` | `9710d5a567701b980c395aac444a1e60f374a63723427bc8803b7adda76b1893` |
+
+```text
+$ getent hosts adicit.serveousercontent.com; curl -o /dev/null -w '%{http_code}' https://…/; POST /mcp tools/list
+
+--- output ---
+37.27.37.254; root http=404; tools -> ['oc_prompt','oc_sessions','oc_exec','oc_read_file','oc_write_file','oc_delete_file','oc_list_dir']
+```
+
+## 138. device state after Termux restart — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `ok` |
+| `exit_code` | `0` |
+| `duration_ms` | `2600` |
+| `output_bytes` | `437` |
+| `output_sha256` | `5b853c935e54a99b147011c81104796c75d11e2a31992cdafb8d6b9b27070c22` |
+
+```text
+$ curl /global/health; /session/status; stat base.apk/jar; wc -l progress.jsonl; ls mcp_out/classes; pgrep -fa 'run_mcp|jadx-headless'; tail driver.log
+
+--- output ---
+{"healthy":true,"version":"1.19.3"}; /session/status -> {} (queue empty); base.apk 92066971; jar 42619858 jar.done=DONE_JAR; .driver.lock mtime Oct 24 12:46 (launch DID run); progress=1 line; classes=0; summary ABSENT; HANDOFF ABSENT; run_mcp.py 12216 B sha 2d500465 (local copy lost with /tmp); driver.log ends "Loaded classes: 91473, methods: 496680, instructions: 13536913"; opencode serve now PID 9814 (was 31618) -> Termux restarted
+```
+
+## 139. measure whether jadx was working or wedged — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `ok` |
+| `exit_code` | `0` |
+| `duration_ms` | `17700` |
+| `output_bytes` | `250` |
+| `output_sha256` | `0e22c835bbd9bc35e3eb303ac51e6ff0d6027ea564619cd8725d06cc85bceaec` |
+
+```text
+$ read /proc/$JP/stat cpu ticks + status, twice, 14 s apart
+
+--- output ---
+cpu_ticks 19831 -> 22580 (=27.5 s CPU in 17.6 s wall, ~1.5 cores), state S, Threads 27, VmRSS 1,501,472 -> 1,678,828 kB; /proc/meminfo MemFree 28,804 kB, MemAvailable 1,487,468 kB -> actively loading under memory pressure, not wedged like the cp case
+```
+
+## 140. diagnosis against the proven config — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `ok` |
+| `exit_code` | `0` |
+| `duration_ms` | `300` |
+| `output_bytes` | `295` |
+| `output_sha256` | `705cf3181f370cc5005a48a9e8b78e3af4fca0f068c4e413685acf76abf0950f` |
+
+```text
+$ diff my argv vs sources/driver-script.txt (the original recovered driver)
+
+--- output ---
+original: `java -Xmx2048m -jar $JAR --transport stdio --apk $APK --resources none --include-packages com.afternoonproducts.swipewipe,com.mwm.swipewipe --threads 2 --decompile-timeout-ms 90000`; mine used --resources full and then a redundant load_apk with code_cache_size 0 -> cause of the stall
+```
+
+## 141. self-inflicted outage: pkill pattern matched its own wrapper — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `error` |
+| `exit_code` | `1` |
+| `duration_ms` | `29300` |
+| `output_bytes` | `295` |
+| `output_sha256` | `d37009bca87f2c18e5665bfc4e6a0cd82a2c69811eb4df1f1473bd86d2dbc60e` |
+
+```text
+$ pkill -f run_mcp.py; pkill -f jadx-headless-mcp; … (sent via oc_exec)
+
+--- output ---
+bridge then returned HTTP 502 permanently: serveo edge answers in 0.55 s, DNS resolves, root/mcp both 502 -> the device-side upstream is gone. The command text is embedded in `bash -c '<cmd>'`, so `pkill -f run_mcp.py` matched the exec wrapper itself. Launch of the fixed driver never confirmed.
+```
+
+## 142. off-device validation of the hardened driver — ts unavailable
+
+| field | value |
+| --- | --- |
+| `tool` | `bash` |
+| `status` | `ok` |
+| `exit_code` | `0` |
+| `duration_ms` | `700` |
+| `output_bytes` | `310` |
+| `output_sha256` | `e17c97926cd6f2d75d1aafa29f4dd6ec39df1a87f0dd15068a51e8c1b95e62c2` |
+
+```text
+$ python3 run_mcp.py --mock (RECON_MOCK_LOADED=0 and 1)
+
+--- output ---
+loaded=0: exit=0 java=5 smali=1 classes=6 errors=0 pidfile=1901; loaded=1: exit=0 java=5 smali=1 pidfile=1903 load=SKIPPED re-index. Earlier in the same loop: caught SyntaxError from a duplicated splice line and the `already` NameError (used L126, assigned L142) — both fixed here, never shipped to the phone
 ```

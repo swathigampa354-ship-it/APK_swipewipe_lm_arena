@@ -91,7 +91,9 @@ Timestamps are recorded only when the source exposed them; `unavailable` is a fa
 | 41 | 2026-10-22T05:46:01 | tool | opencode-bridge | verbatim-db-export | `42fc28bccca2` | 1557 |
 | 42 | unavailable | assistant | arena-agent | authored-for-archive | `3ca1cd58a354` | 2370 |
 | 42 | 2026-10-22T05:46:01 | tool | opencode-bridge | verbatim-db-export | `6d270bb0fcf9` | 690 |
+| 43 | unavailable | user | arena-user | recovered-from-session-context | `d22d718a91df` | 468 |
 | 43 | 2026-10-22T05:46:07 | tool | opencode-bridge | verbatim-db-export | `57d13824af01` | 1418 |
+| 44 | unavailable | assistant | arena-agent | authored-for-archive | `a0a2ebefe39a` | 1763 |
 | 44 | 2026-10-22T05:46:07 | tool | opencode-bridge | verbatim-db-export | `6e9c775a74b2` | 513 |
 | 45 | 2026-10-22T05:46:15 | tool | opencode-bridge | verbatim-db-export | `152aa9e24b27` | 1714 |
 | 46 | 2026-10-22T05:46:15 | tool | opencode-bridge | verbatim-db-export | `94ef5fb38789` | 1539 |
@@ -185,3 +187,9 @@ Timestamps are recorded only when the source exposed them; `unavailable` is a fa
 | 134 | unavailable | tool | arena-agent | tool-capture | `b653b6fec9af` | 421 |
 | 135 | unavailable | tool | arena-agent | tool-capture | `03600e1aca57` | 437 |
 | 136 | unavailable | tool | arena-agent | tool-capture | `c27312784951` | 450 |
+| 137 | unavailable | tool | arena-agent | tool-capture | `50391a5103c1` | 267 |
+| 138 | unavailable | tool | arena-agent | tool-capture | `a23bbcc0f255` | 605 |
+| 139 | unavailable | tool | arena-agent | tool-capture | `73913164a7d4` | 326 |
+| 140 | unavailable | tool | arena-agent | tool-capture | `ef5fe7223a3f` | 387 |
+| 141 | unavailable | tool | arena-agent | tool-capture | `76f16e7566ed` | 383 |
+| 142 | unavailable | tool | arena-agent | tool-capture | `6b410f23cd37` | 380 |
